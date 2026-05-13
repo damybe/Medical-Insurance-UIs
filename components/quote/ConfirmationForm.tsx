@@ -1057,9 +1057,23 @@ export default function ConfirmationForm({
                       <Radio value={false}>No</Radio>
                     </Radio.Group>
                     {medicalAnswers[q.id]?.answer === true && medicalAnswers[q.id]?.details && (
-                      <span className="text-green-600 text-sm flex items-center gap-1">
-                        <CheckCircleOutlined /> Details provided
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-green-600 text-sm flex items-center gap-1">
+                          <CheckCircleOutlined /> Details provided
+                        </span>
+                        <Button
+                          type="link"
+                          size="small"
+                          icon={<EditOutlined />}
+                          onClick={() => {
+                            setCurrentMedicalQuestion(q.id);
+                            setMedicalDetailsModalOpen(true);
+                          }}
+                          className="text-[#0a3d62] p-0"
+                        >
+                          View/Edit
+                        </Button>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -1102,9 +1116,23 @@ export default function ConfirmationForm({
                             </Radio.Group>
                             {dependentMedicalAnswers[dep.id]?.[q.id]?.answer === true &&
                               dependentMedicalAnswers[dep.id]?.[q.id]?.details && (
-                                <span className="text-green-600 text-sm flex items-center gap-1">
-                                  <CheckCircleOutlined /> Details provided
-                                </span>
+                                <div className="flex items-center gap-2">
+                                  <span className="text-green-600 text-sm flex items-center gap-1">
+                                    <CheckCircleOutlined /> Details provided
+                                  </span>
+                                  <Button
+                                    type="link"
+                                    size="small"
+                                    icon={<EditOutlined />}
+                                    onClick={() => {
+                                      setCurrentMedicalQuestion(`${dep.id}:${q.id}`);
+                                      setMedicalDetailsModalOpen(true);
+                                    }}
+                                    className="text-[#0a3d62] p-0"
+                                  >
+                                    View/Edit
+                                  </Button>
+                                </div>
                               )}
                           </div>
                         </div>
@@ -1212,9 +1240,12 @@ export default function ConfirmationForm({
 
       {/* Medical Details Modal */}
       <Modal
-        title="Please Provide Details"
+        title="Medical Details"
         open={medicalDetailsModalOpen}
-        onCancel={() => setMedicalDetailsModalOpen(false)}
+        onCancel={() => {
+          setMedicalDetailsModalOpen(false);
+          setCurrentMedicalQuestion(null);
+        }}
         footer={null}
         centered
       >
@@ -1226,9 +1257,20 @@ export default function ConfirmationForm({
             rows={4}
             placeholder="Enter details here..."
             id="medicalDetailsInput"
+            key={currentMedicalQuestion}
+            defaultValue={
+              currentMedicalQuestion
+                ? currentMedicalQuestion.includes(":")
+                  ? dependentMedicalAnswers[currentMedicalQuestion.split(":")[0]]?.[currentMedicalQuestion.split(":")[1]]?.details || ""
+                  : medicalAnswers[currentMedicalQuestion]?.details || ""
+                : ""
+            }
           />
           <div className="flex justify-end gap-3 mt-4">
-            <Button onClick={() => setMedicalDetailsModalOpen(false)}>
+            <Button onClick={() => {
+              setMedicalDetailsModalOpen(false);
+              setCurrentMedicalQuestion(null);
+            }}>
               Cancel
             </Button>
             <Button
