@@ -695,7 +695,7 @@ export default function SelectPlanForm({ onContinue, onBack }: SelectPlanFormPro
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-8">
+    <div className="w-full px-6 py-8 overflow-hidden">
       {/* Section Header */}
       <div className="mb-8">
         <p className="text-sm text-gray-500 mb-2">ជ្រើសរើសផែនការរបស់អ្នក</p>
