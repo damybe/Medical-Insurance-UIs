@@ -261,6 +261,14 @@ export default function ConfirmationForm({
   const handleEditDependent = (index: number) => {
     const dep = dependents[index];
     dependentForm.setFieldsValue({
+      // Pre-fill from DependentsForm data
+      relationship: dep.relationship,
+      title: dep.title,
+      familyName: dep.familyName,
+      givenName: dep.givenName,
+      dateOfBirth: dep.dateOfBirth,
+      gender: dep.gender,
+      // Additional fields
       height: "",
       weight: "",
       cardType: "NID",
@@ -1261,34 +1269,92 @@ export default function ConfirmationForm({
         </div>
 
         <Form form={dependentForm} layout="vertical">
-          {/* Pre-filled details from DependentsForm (Read-only display) */}
-          {editingDependentIndex !== null && (
-            <div className="bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200">
-              <p className="text-sm font-medium text-gray-700 mb-3">Information from Previous Step</p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                <div>
-                  <p className="text-gray-500">Relationship</p>
-                  <p className="font-medium text-[#c8102e]">{dependents[editingDependentIndex]?.relationship}</p>
-                </div>
-                <div>
-                  <p className="text-gray-500">Full Name</p>
-                  <p className="font-medium">{dependents[editingDependentIndex]?.title} {dependents[editingDependentIndex]?.familyName} {dependents[editingDependentIndex]?.givenName}</p>
-                </div>
-                <div>
-                  <p className="text-gray-500">Date of Birth</p>
-                  <p className="font-medium">{dependents[editingDependentIndex]?.dateOfBirth?.format("DD/MMM/YYYY") || "N/A"}</p>
-                </div>
-                <div>
-                  <p className="text-gray-500">Gender</p>
-                  <p className="font-medium">{dependents[editingDependentIndex]?.gender}</p>
-                </div>
-                <div>
-                  <p className="text-gray-500">Age at Next Birthday</p>
-                  <p className="font-medium">{dependents[editingDependentIndex]?.ageAtNextBirthday} years</p>
-                </div>
-              </div>
+          {/* Editable details from DependentsForm */}
+          <div className="bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200">
+            <p className="text-sm font-medium text-gray-700 mb-3">Basic Information (Editable)</p>
+            <div className="grid grid-cols-2 gap-4">
+              <Form.Item
+                name="relationship"
+                label={<FormLabel khmer="ទំនាក់ទំនង" english="Relationship" required />}
+                rules={[{ required: true, message: "Please select relationship" }]}
+              >
+                <Select
+                  size="large"
+                  placeholder="Select relationship"
+                  options={[
+                    { value: "Spouse", label: "Spouse" },
+                    { value: "Child", label: "Child" },
+                    { value: "Parent", label: "Parent" },
+                    { value: "Sibling", label: "Sibling" },
+                  ]}
+                />
+              </Form.Item>
+
+              <Form.Item
+                name="title"
+                label={<FormLabel khmer="គោរព" english="Title" />}
+              >
+                <Select
+                  size="large"
+                  placeholder="Select title"
+                  options={[
+                    { value: "Mr.", label: "Mr." },
+                    { value: "Mrs.", label: "Mrs." },
+                    { value: "Ms.", label: "Ms." },
+                    { value: "Dr.", label: "Dr." },
+                  ]}
+                />
+              </Form.Item>
             </div>
-          )}
+
+            <div className="grid grid-cols-2 gap-4">
+              <Form.Item
+                name="familyName"
+                label={<FormLabel khmer="នាមត្រកូល" english="Family Name" required />}
+                rules={[{ required: true, message: "Please enter family name" }]}
+              >
+                <Input size="large" placeholder="Enter family name" />
+              </Form.Item>
+
+              <Form.Item
+                name="givenName"
+                label={<FormLabel khmer="នាមខ្លួន" english="Given Name" required />}
+                rules={[{ required: true, message: "Please enter given name" }]}
+              >
+                <Input size="large" placeholder="Enter given name" />
+              </Form.Item>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <Form.Item
+                name="dateOfBirth"
+                label={<FormLabel khmer="ថ្ងៃខែឆ្នាំកំណើត" english="Date of Birth" required />}
+                rules={[{ required: true, message: "Please select date of birth" }]}
+              >
+                <DatePicker
+                  size="large"
+                  format="DD/MMM/YYYY"
+                  className="w-full"
+                  placeholder="Select date"
+                />
+              </Form.Item>
+
+              <Form.Item
+                name="gender"
+                label={<FormLabel khmer="ភេទ" english="Gender" required />}
+                rules={[{ required: true, message: "Please select gender" }]}
+              >
+                <Select
+                  size="large"
+                  placeholder="Select gender"
+                  options={[
+                    { value: "Male", label: "Male" },
+                    { value: "Female", label: "Female" },
+                  ]}
+                />
+              </Form.Item>
+            </div>
+          </div>
 
           {/* Additional Details Section */}
           <p className="text-sm font-medium text-gray-700 mb-4">Additional Information Required</p>
