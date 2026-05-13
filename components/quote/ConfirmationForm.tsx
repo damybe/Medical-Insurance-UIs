@@ -343,33 +343,146 @@ export default function ConfirmationForm({
               icon={UserOutlined}
               titleKh="ព័ត៌មានអំពីម្ចាស់បណ្ណា"
               titleEn="Details of Policy Holder"
-              description="Physical measurements and identification details"
+              description="Review and complete your personal information"
             />
+
+            {/* Pre-filled details from PolicyholderForm */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+              <Form.Item
+                name="title"
+                label={<FormLabel khmer="គោត្ត" english="Title" />}
+              >
+                <Select
+                  size="large"
+                  placeholder="Select title"
+                  options={[
+                    { value: "Mr.", label: "Mr." },
+                    { value: "Mrs.", label: "Mrs." },
+                    { value: "Ms.", label: "Ms." },
+                    { value: "Dr.", label: "Dr." },
+                  ]}
+                />
+              </Form.Item>
+
+              <Form.Item
+                name="familyName"
+                label={<FormLabel khmer="នាមត្រកូល" english="Family Name" required />}
+                rules={[{ required: true, message: "Please enter family name" }]}
+              >
+                <Input size="large" placeholder="Enter family name" />
+              </Form.Item>
+
+              <Form.Item
+                name="givenName"
+                label={<FormLabel khmer="នាមខ្លួន" english="Given Name" required />}
+                rules={[{ required: true, message: "Please enter given name" }]}
+              >
+                <Input size="large" placeholder="Enter given name" />
+              </Form.Item>
+
+              <Form.Item
+                name="gender"
+                label={<FormLabel khmer="ភេទ" english="Gender" required />}
+                rules={[{ required: true, message: "Please select gender" }]}
+              >
+                <Select
+                  size="large"
+                  placeholder="Select gender"
+                  options={[
+                    { value: "Male", label: "Male" },
+                    { value: "Female", label: "Female" },
+                    { value: "Other", label: "Other" },
+                    { value: "Prefer not to say", label: "Prefer not to say" },
+                  ]}
+                />
+              </Form.Item>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <Form.Item
-                name="height"
-                label={<FormLabel khmer="កម្ពស់" english="Height (cm)" required />}
-                rules={[{ required: true, message: "Please enter height" }]}
+                name="dateOfBirth"
+                label={<FormLabel khmer="ថ្ងៃខែឆ្នាំកំណើត" english="Date of Birth" required />}
+                rules={[{ required: true, message: "Please select date of birth" }]}
               >
-                <Input size="large" placeholder="e.g., 170" suffix="cm" />
+                <DatePicker
+                  size="large"
+                  format="DD/MMM/YYYY"
+                  className="w-full"
+                  placeholder="dd/MMM/yyyy"
+                />
               </Form.Item>
 
-              <Form.Item
-                name="weight"
-                label={<FormLabel khmer="ទម្ងន់" english="Weight (kg)" required />}
-                rules={[{ required: true, message: "Please enter weight" }]}
-              >
-                <Input size="large" placeholder="e.g., 65" suffix="kg" />
-              </Form.Item>
+              <div>
+                <div className="mb-2">
+                  <span className="block text-xs text-gray-500">លេខទូរស័ព្ទ</span>
+                  <span className="text-gray-700">Contact Number</span>
+                  <span className="text-[#c8102e] ml-1">*</span>
+                </div>
+                <div className="flex gap-2">
+                  <Form.Item name="countryCode" className="mb-0" style={{ width: '120px' }}>
+                    <Select
+                      size="large"
+                      options={[
+                        { value: "+855", label: "+855" },
+                        { value: "+1", label: "+1" },
+                        { value: "+44", label: "+44" },
+                        { value: "+61", label: "+61" },
+                        { value: "+65", label: "+65" },
+                        { value: "+66", label: "+66" },
+                        { value: "+84", label: "+84" },
+                      ]}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="phoneNumber"
+                    className="mb-0 flex-1"
+                    rules={[{ required: true, message: "Please enter phone number" }]}
+                  >
+                    <Input size="large" placeholder="Enter phone number" />
+                  </Form.Item>
+                </div>
+              </div>
 
               <Form.Item
-                name="maritalStatus"
-                label={<FormLabel khmer="ស្ថានភាពអាពាហ៍ពិពាហ៍" english="Marital Status" required />}
-                rules={[{ required: true, message: "Please select marital status" }]}
+                name="email"
+                label={<FormLabel khmer="អ៊ីមែល" english="Email" required />}
+                rules={[
+                  { required: true, message: "Please enter email" },
+                  { type: "email", message: "Please enter a valid email" }
+                ]}
               >
-                <Select size="large" placeholder="Select" options={maritalStatusOptions} />
+                <Input size="large" placeholder="Enter email address" />
               </Form.Item>
+            </div>
+
+            {/* Additional details */}
+            <div className="border-t border-gray-200 pt-6 mt-6">
+              <p className="text-sm font-medium text-gray-700 mb-4">Additional Information</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <Form.Item
+                  name="height"
+                  label={<FormLabel khmer="កម្ពស់" english="Height (cm)" required />}
+                  rules={[{ required: true, message: "Please enter height" }]}
+                >
+                  <Input size="large" placeholder="e.g., 170" suffix="cm" />
+                </Form.Item>
+
+                <Form.Item
+                  name="weight"
+                  label={<FormLabel khmer="ទម្ងន់" english="Weight (kg)" required />}
+                  rules={[{ required: true, message: "Please enter weight" }]}
+                >
+                  <Input size="large" placeholder="e.g., 65" suffix="kg" />
+                </Form.Item>
+
+                <Form.Item
+                  name="maritalStatus"
+                  label={<FormLabel khmer="ស្ថានភាពអាពាហ៍ពិពាហ៍" english="Marital Status" required />}
+                  rules={[{ required: true, message: "Please select marital status" }]}
+                >
+                  <Select size="large" placeholder="Select" options={maritalStatusOptions} />
+                </Form.Item>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -575,7 +688,7 @@ export default function ConfirmationForm({
 
                   <Form.Item
                     name="correspondenceCity"
-                    label={<FormLabel khmer="ក្រុង/ខេត្ត" english="City" required />}
+                    label={<FormLabel khmer="ក្រុង/ខេត��ត" english="City" required />}
                     rules={[{ required: !sameAsResidential, message: "Please enter city" }]}
                   >
                     <Input size="large" placeholder="Enter city" onChange={() => handleAddressFieldChange("correspondence")} />
@@ -675,25 +788,39 @@ export default function ConfirmationForm({
                 icon={TeamOutlined}
                 titleKh="សមាជិកគ្រួសារ"
                 titleEn="Dependants"
-                description="Additional details for each dependent"
+                description="Review and add additional details for each dependent"
               />
 
               <div className="space-y-4">
                 {dependents.map((dep, index) => (
-                  <div key={dep.id} className="border border-gray-200 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-[#c8102e] text-white flex items-center justify-center font-semibold">
+                  <div key={dep.id} className="border border-gray-200 rounded-lg p-5 hover:border-gray-300 transition-colors">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 rounded-full bg-[#c8102e] text-white flex items-center justify-center font-semibold text-lg">
                           {dep.familyName.charAt(0)}{dep.givenName.charAt(0)}
                         </div>
-                        <div>
-                          <p className="font-semibold text-gray-900">{dep.title} {dep.familyName} {dep.givenName}</p>
-                          <p className="text-sm text-gray-500">{dep.relationship} · {dep.gender}</p>
+                        <div className="flex-1">
+                          <p className="font-semibold text-gray-900 text-lg">
+                            {dep.title} {dep.familyName} {dep.givenName}
+                          </p>
+                          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-gray-500">
+                            <span className="inline-flex items-center gap-1">
+                              <span className="font-medium text-[#c8102e]">{dep.relationship}</span>
+                            </span>
+                            <span>|</span>
+                            <span>{dep.gender}</span>
+                            <span>|</span>
+                            <span>DOB: {dep.dateOfBirth?.format("DD/MMM/YYYY") || "N/A"}</span>
+                            <span>|</span>
+                            <span>Age: {dep.ageAtNextBirthday} years</span>
+                          </div>
                         </div>
                       </div>
                       <Button
+                        type="primary"
                         icon={<EditOutlined />}
                         onClick={() => handleEditDependent(index)}
+                        className="bg-[#0a3d62] hover:bg-[#083352] border-0"
                       >
                         Add Details
                       </Button>
