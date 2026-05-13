@@ -12,6 +12,7 @@ import {
   SafetyCertificateOutlined,
   GlobalOutlined,
   PlusCircleOutlined,
+  FileTextOutlined,
 } from "@ant-design/icons";
 import { PlanData } from "./SelectPlanForm";
 import { Dependent } from "./AddDependentModal";
@@ -85,6 +86,7 @@ export default function QuotationReview({
   const [emailModalOpen, setEmailModalOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [sendingEmail, setSendingEmail] = useState(false);
+  const [quotationGenerated, setQuotationGenerated] = useState(false);
 
   const quotationNumber = `QT-${Date.now().toString().slice(-8)}`;
   const quotationDate = new Date().toLocaleDateString("en-US", {
@@ -416,23 +418,37 @@ Annual Premium: $${plan?.basePremium?.toLocaleString()}/person
           </button>
 
           <div className="flex gap-3">
-            <Button
-              size="large"
-              icon={<DownloadOutlined />}
-              onClick={handleDownload}
-              className="flex items-center gap-2 h-12 px-6 border-[#0a3d62] text-[#0a3d62] hover:bg-[#0a3d62]/5"
-            >
-              Download Quotation
-            </Button>
-            <Button
-              type="primary"
-              size="large"
-              icon={<MailOutlined />}
-              onClick={() => setEmailModalOpen(true)}
-              className="flex items-center gap-2 h-12 px-6 bg-[#c8102e] hover:bg-[#a00d25] border-0"
-            >
-              Email Quotation
-            </Button>
+            {!quotationGenerated ? (
+              <Button
+                type="primary"
+                size="large"
+                icon={<FileTextOutlined />}
+                onClick={() => setQuotationGenerated(true)}
+                className="flex items-center gap-2 h-12 px-6 bg-[#0a3d62] hover:bg-[#083352] border-0"
+              >
+                Generate Quotation
+              </Button>
+            ) : (
+              <>
+                <Button
+                  size="large"
+                  icon={<DownloadOutlined />}
+                  onClick={handleDownload}
+                  className="flex items-center gap-2 h-12 px-6 border-[#0a3d62] text-[#0a3d62] hover:bg-[#0a3d62]/5"
+                >
+                  Download Quotation
+                </Button>
+                <Button
+                  type="primary"
+                  size="large"
+                  icon={<MailOutlined />}
+                  onClick={() => setEmailModalOpen(true)}
+                  className="flex items-center gap-2 h-12 px-6 bg-[#c8102e] hover:bg-[#a00d25] border-0"
+                >
+                  Email Quotation
+                </Button>
+              </>
+            )}
           </div>
         </div>
 
