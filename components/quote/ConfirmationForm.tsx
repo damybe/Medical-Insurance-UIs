@@ -270,42 +270,62 @@ const relationshipOptions = [
 const medicalQuestions = [
   {
     id: "hospital_admission",
+    category: "General Health",
+    shortTitle: "Hospital / Surgery",
     question: "Been admitted to a hospital / other medical facility or had surgery",
   },
   {
     id: "disability_costs",
+    category: "General Health",
+    shortTitle: "Disability / Medical Costs",
     question: "Been disabled and / or incurred medical costs exceeding USD$6,500",
   },
   {
     id: "checkup_abnormality",
+    category: "General Health",
+    shortTitle: "Checkup Abnormality",
     question: "Been told that there was any abnormity during checkup",
   },
   {
     id: "respiratory",
+    category: "Respiratory System",
+    shortTitle: "Respiratory Issues",
     question: "Had any health problems related to: Chronic cough, expectoration, hemoptysis, asthma, difficulty breathing, bronchiectasis, pneumothorax, emphysema, tuberculosis, pleurisy, chronic bronchitis, or other diseases of the respiratory system?",
   },
   {
     id: "urinary",
+    category: "Urinary System",
+    shortTitle: "Urinary Problems",
     question: "Had any health problems related to: Back pain, frequent urination, urgency of urination, pain in urination, difficulty urinating, blood or protein in the urine, abnormal amount of urine, nocturia, swelling in the face, kidney and urinary tract stone, nephritis, nephropathy, renal cyst, hydronephrosis, or other urinary system problems?",
   },
   {
     id: "digestive",
+    category: "Digestive System",
+    shortTitle: "Digestive Problems",
     question: "Had any health problems related to: Belch, nausea, vomiting, abdominal distention, abdominal pain, constipation, diarrhea, hematemesis, melena, hematochezia, jaundice, difficulty swallowing, ulcer, colitis, stomach problems, hernia, rectal problems, HBV Carrier, liver disorders, gall bladder disorder, pancreas problems or other digestive system problems?",
   },
   {
     id: "pregnant",
+    category: "Other",
+    shortTitle: "Pregnancy",
     question: "Are you currently pregnant? (Not applicable for members below 18 years old)",
   },
   {
     id: "smoking",
+    category: "Lifestyle",
+    shortTitle: "Smoking / Tobacco",
     question: "Smoke more than 15 cigarettes per day or use tobacco in any form?",
   },
   {
     id: "weight_change",
+    category: "Lifestyle",
+    shortTitle: "Weight Change",
     question: "Within the past 5 years, gained or lost more than 12kg (25lbs) in 12 months?",
   },
   {
     id: "other_condition",
+    category: "Other",
+    shortTitle: "Other Conditions",
     question: "Any other medical condition that has not been disclosed above?",
   },
 ];
@@ -1419,60 +1439,167 @@ export default function ConfirmationForm({
               icon={QuestionCircleOutlined}
               titleKh="កម្រងសំណួរវេជ្ជសាស្រ្ត"
               titleEn="Medical Questionnaire - Policy Holder"
-              description="Health-related questions for the policyholder"
+              description="Please answer the following health-related questions"
             />
 
-            <div className="space-y-4">
-              {medicalQuestions.map((q) => (
-                <div key={q.id} className="p-4 bg-gray-50 rounded-lg">
-                  <div className="flex items-start justify-between gap-4">
-                    <p className="text-gray-700 text-sm flex-1">{q.question}</p>
-                    <div className="flex items-center gap-3 shrink-0">
-                      <button
-                        type="button"
-                        onClick={() => handleMedicalAnswer(q.id, false)}
-                        className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-                          medicalAnswers[q.id]?.answer === false
-                            ? "bg-[#0a3d62] text-white"
-                            : "bg-gray-200 text-gray-600 hover:bg-gray-300"
-                        }`}
-                      >
-                        No
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleMedicalAnswer(q.id, true)}
-                        className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-                          medicalAnswers[q.id]?.answer === true
-                            ? "bg-[#c8102e] text-white"
-                            : "bg-gray-200 text-gray-600 hover:bg-gray-300"
-                        }`}
-                      >
-                        Yes
-                      </button>
+            {/* Progress Indicator */}
+            <div className="mb-6 p-4 bg-gradient-to-r from-[#0a3d62]/5 to-[#0a3d62]/10 rounded-lg">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-[#0a3d62]">
+                  Progress: {Object.keys(medicalAnswers).filter(k => medicalAnswers[k]?.answer !== undefined).length} of {medicalQuestions.length} answered
+                </span>
+                <span className="text-sm text-gray-500">
+                  {Math.round((Object.keys(medicalAnswers).filter(k => medicalAnswers[k]?.answer !== undefined).length / medicalQuestions.length) * 100)}% complete
+                </span>
+              </div>
+              <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-[#0a3d62] to-[#c8102e] transition-all duration-300 rounded-full"
+                  style={{ width: `${(Object.keys(medicalAnswers).filter(k => medicalAnswers[k]?.answer !== undefined).length / medicalQuestions.length) * 100}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Quick Answer All No Button */}
+            <div className="mb-6 flex items-center justify-between p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="flex items-center gap-2">
+                <ExclamationCircleOutlined className="text-blue-500" />
+                <span className="text-sm text-blue-700">If all answers are &quot;No&quot;, you can quickly mark all at once</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  medicalQuestions.forEach(q => {
+                    if (medicalAnswers[q.id]?.answer === undefined) {
+                      handleMedicalAnswer(q.id, false);
+                    }
+                  });
+                }}
+                className="px-4 py-1.5 bg-[#0a3d62] text-white text-sm font-medium rounded-lg hover:bg-[#083352] transition-colors"
+              >
+                Mark All as No
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {medicalQuestions.map((q, index) => {
+                const isAnswered = medicalAnswers[q.id]?.answer !== undefined;
+                const isYes = medicalAnswers[q.id]?.answer === true;
+                const isNo = medicalAnswers[q.id]?.answer === false;
+                const hasDetails = medicalAnswers[q.id]?.details;
+                
+                return (
+                  <div 
+                    key={q.id} 
+                    className={`rounded-xl border-2 transition-all duration-200 overflow-hidden ${
+                      isYes 
+                        ? "border-[#c8102e]/30 bg-red-50/50" 
+                        : isNo 
+                          ? "border-green-200 bg-green-50/30" 
+                          : "border-gray-200 bg-white hover:border-gray-300"
+                    }`}
+                  >
+                    <div className="p-4">
+                      <div className="flex items-start gap-4">
+                        {/* Question Number & Status */}
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
+                          isYes 
+                            ? "bg-[#c8102e] text-white" 
+                            : isNo 
+                              ? "bg-green-500 text-white" 
+                              : "bg-gray-200 text-gray-600"
+                        }`}>
+                          {isAnswered ? (isYes ? "!" : <CheckCircleOutlined />) : index + 1}
+                        </div>
+                        
+                        {/* Question Content */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
+                              {q.category}
+                            </span>
+                            <span className="text-sm font-semibold text-gray-800">{q.shortTitle}</span>
+                          </div>
+                          <p className="text-gray-600 text-sm leading-relaxed">{q.question}</p>
+                        </div>
+                        
+                        {/* Answer Buttons */}
+                        <div className="flex items-center gap-2 shrink-0">
+                          <button
+                            type="button"
+                            onClick={() => handleMedicalAnswer(q.id, false)}
+                            className={`px-5 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
+                              isNo
+                                ? "bg-green-500 text-white shadow-sm"
+                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                            }`}
+                          >
+                            {isNo && <CheckCircleOutlined className="text-xs" />}
+                            No
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleMedicalAnswer(q.id, true)}
+                            className={`px-5 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
+                              isYes
+                                ? "bg-[#c8102e] text-white shadow-sm"
+                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                            }`}
+                          >
+                            {isYes && <ExclamationCircleOutlined className="text-xs" />}
+                            Yes
+                          </button>
+                        </div>
+                      </div>
+                      
+                      {/* Yes - Details Section */}
+                      {isYes && (
+                        <div className="mt-4 pt-4 border-t border-[#c8102e]/20">
+                          {hasDetails ? (
+                            <div className="flex items-center justify-between bg-white p-3 rounded-lg border border-green-200">
+                              <div className="flex items-center gap-2">
+                                <CheckCircleOutlined className="text-green-500" />
+                                <span className="text-sm text-green-700 font-medium">Details have been provided</span>
+                              </div>
+                              <Button
+                                type="link"
+                                size="small"
+                                icon={<EditOutlined />}
+                                onClick={() => {
+                                  setCurrentMedicalQuestion(q.id);
+                                  setMedicalDetailsModalOpen(true);
+                                }}
+                                className="text-[#0a3d62]"
+                              >
+                                View / Edit
+                              </Button>
+                            </div>
+                          ) : (
+                            <div className="flex items-center justify-between bg-amber-50 p-3 rounded-lg border border-amber-200">
+                              <div className="flex items-center gap-2">
+                                <ExclamationCircleOutlined className="text-amber-500" />
+                                <span className="text-sm text-amber-700">Please provide details about this condition</span>
+                              </div>
+                              <Button
+                                type="primary"
+                                size="small"
+                                icon={<EditOutlined />}
+                                onClick={() => {
+                                  setCurrentMedicalQuestion(q.id);
+                                  setMedicalDetailsModalOpen(true);
+                                }}
+                                className="bg-[#c8102e] border-0"
+                              >
+                                Add Details
+                              </Button>
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
-                  {medicalAnswers[q.id]?.answer === true && medicalAnswers[q.id]?.details && (
-                    <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-200">
-                      <span className="text-green-600 text-sm flex items-center gap-1">
-                        <CheckCircleOutlined /> Details provided
-                      </span>
-                      <Button
-                        type="link"
-                        size="small"
-                        icon={<EditOutlined />}
-                        onClick={() => {
-                          setCurrentMedicalQuestion(q.id);
-                          setMedicalDetailsModalOpen(true);
-                        }}
-                        className="text-[#0a3d62] p-0"
-                      >
-                        View/Edit
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -1483,75 +1610,187 @@ export default function ConfirmationForm({
                 icon={QuestionCircleOutlined}
                 titleKh="កម្រងសំណួរវេជ្ជសាស្រ្ត - សមាជិកគ្រួសារ"
                 titleEn="Medical Questionnaire - Dependants"
-                description="Health-related questions for each dependent"
+                description="Please answer the health-related questions for each dependent"
               />
 
-              <Collapse accordion>
-                {dependents.map((dep) => (
-                  <Panel
-                    header={
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold">{dep.title} {dep.familyName} {dep.givenName}</span>
-                        <span className="text-gray-500">({dep.relationship})</span>
-                      </div>
-                    }
-                    key={dep.id}
-                  >
-                    <div className="space-y-4">
-                      {medicalQuestions.map((q) => (
-                        <div key={q.id} className="p-4 bg-gray-50 rounded-lg">
-                          <div className="flex items-start justify-between gap-4">
-                            <p className="text-gray-700 text-sm flex-1">{q.question}</p>
-                            <div className="flex items-center gap-3 shrink-0">
-                              <button
-                                type="button"
-                                onClick={() => handleMedicalAnswer(q.id, false, dep.id)}
-                                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-                                  dependentMedicalAnswers[dep.id]?.[q.id]?.answer === false
-                                    ? "bg-[#0a3d62] text-white"
-                                    : "bg-gray-200 text-gray-600 hover:bg-gray-300"
-                                }`}
-                              >
-                                No
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => handleMedicalAnswer(q.id, true, dep.id)}
-                                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-                                  dependentMedicalAnswers[dep.id]?.[q.id]?.answer === true
-                                    ? "bg-[#c8102e] text-white"
-                                    : "bg-gray-200 text-gray-600 hover:bg-gray-300"
-                                }`}
-                              >
-                                Yes
-                              </button>
+              <Collapse 
+                accordion 
+                className="bg-transparent border-0"
+                expandIconPosition="end"
+              >
+                {dependents.map((dep) => {
+                  const depAnswers = dependentMedicalAnswers[dep.id] || {};
+                  const answeredCount = Object.keys(depAnswers).filter(k => depAnswers[k]?.answer !== undefined).length;
+                  const isComplete = answeredCount === medicalQuestions.length;
+                  
+                  return (
+                    <Panel
+                      header={
+                        <div className="flex items-center justify-between w-full pr-4">
+                          <div className="flex items-center gap-3">
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold ${
+                              isComplete ? "bg-green-500" : "bg-[#c8102e]"
+                            }`}>
+                              {dep.familyName.charAt(0)}{dep.givenName.charAt(0)}
+                            </div>
+                            <div>
+                              <span className="font-semibold text-gray-800">{dep.title} {dep.familyName} {dep.givenName}</span>
+                              <span className="ml-2 text-sm px-2 py-0.5 rounded-full bg-[#c8102e]/10 text-[#c8102e]">{dep.relationship}</span>
                             </div>
                           </div>
-                          {dependentMedicalAnswers[dep.id]?.[q.id]?.answer === true &&
-                            dependentMedicalAnswers[dep.id]?.[q.id]?.details && (
-                              <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-200">
-                                <span className="text-green-600 text-sm flex items-center gap-1">
-                                  <CheckCircleOutlined /> Details provided
-                                </span>
-                                <Button
-                                  type="link"
-                                  size="small"
-                                  icon={<EditOutlined />}
-                                  onClick={() => {
-                                    setCurrentMedicalQuestion(`${dep.id}:${q.id}`);
-                                    setMedicalDetailsModalOpen(true);
-                                  }}
-                                  className="text-[#0a3d62] p-0"
-                                >
-                                  View/Edit
-                                </Button>
-                              </div>
+                          <div className="flex items-center gap-2">
+                            {isComplete ? (
+                              <span className="text-sm px-3 py-1 rounded-full bg-green-100 text-green-700 font-medium flex items-center gap-1">
+                                <CheckCircleOutlined /> Complete
+                              </span>
+                            ) : (
+                              <span className="text-sm px-3 py-1 rounded-full bg-amber-100 text-amber-700 font-medium">
+                                {answeredCount}/{medicalQuestions.length} answered
+                              </span>
                             )}
+                          </div>
                         </div>
-                      ))}
-                    </div>
-                  </Panel>
-                ))}
+                      }
+                      key={dep.id}
+                      className="mb-3 rounded-xl overflow-hidden border border-gray-200 bg-gray-50"
+                    >
+                      {/* Progress Bar */}
+                      <div className="mb-4 p-3 bg-white rounded-lg border border-gray-100">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-medium text-gray-600">
+                            Progress: {answeredCount} of {medicalQuestions.length}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {Math.round((answeredCount / medicalQuestions.length) * 100)}%
+                          </span>
+                        </div>
+                        <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-gradient-to-r from-[#0a3d62] to-[#c8102e] transition-all duration-300"
+                            style={{ width: `${(answeredCount / medicalQuestions.length) * 100}%` }}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Quick Mark All No */}
+                      <div className="mb-4 flex items-center justify-between p-2 bg-blue-50 rounded-lg">
+                        <span className="text-xs text-blue-700">Mark all unanswered as No</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            medicalQuestions.forEach(q => {
+                              if (depAnswers[q.id]?.answer === undefined) {
+                                handleMedicalAnswer(q.id, false, dep.id);
+                              }
+                            });
+                          }}
+                          className="px-3 py-1 bg-[#0a3d62] text-white text-xs font-medium rounded hover:bg-[#083352] transition-colors"
+                        >
+                          Mark All No
+                        </button>
+                      </div>
+
+                      <div className="space-y-2">
+                        {medicalQuestions.map((q, index) => {
+                          const isAnswered = depAnswers[q.id]?.answer !== undefined;
+                          const isYes = depAnswers[q.id]?.answer === true;
+                          const isNo = depAnswers[q.id]?.answer === false;
+                          const hasDetails = depAnswers[q.id]?.details;
+                          
+                          return (
+                            <div 
+                              key={q.id} 
+                              className={`rounded-lg border transition-all ${
+                                isYes 
+                                  ? "border-[#c8102e]/30 bg-red-50" 
+                                  : isNo 
+                                    ? "border-green-200 bg-green-50/50" 
+                                    : "border-gray-200 bg-white"
+                              }`}
+                            >
+                              <div className="p-3">
+                                <div className="flex items-start gap-3">
+                                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                                    isYes 
+                                      ? "bg-[#c8102e] text-white" 
+                                      : isNo 
+                                        ? "bg-green-500 text-white" 
+                                        : "bg-gray-200 text-gray-600"
+                                  }`}>
+                                    {isAnswered ? (isYes ? "!" : <CheckCircleOutlined />) : index + 1}
+                                  </div>
+                                  
+                                  <div className="flex-1 min-w-0">
+                                    <span className="text-xs font-medium text-gray-500">{q.shortTitle}</span>
+                                    <p className="text-gray-700 text-xs mt-0.5 leading-relaxed">{q.question}</p>
+                                  </div>
+                                  
+                                  <div className="flex items-center gap-1.5 shrink-0">
+                                    <button
+                                      type="button"
+                                      onClick={() => handleMedicalAnswer(q.id, false, dep.id)}
+                                      className={`px-3 py-1 rounded text-xs font-medium transition-all ${
+                                        isNo
+                                          ? "bg-green-500 text-white"
+                                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                      }`}
+                                    >
+                                      No
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => handleMedicalAnswer(q.id, true, dep.id)}
+                                      className={`px-3 py-1 rounded text-xs font-medium transition-all ${
+                                        isYes
+                                          ? "bg-[#c8102e] text-white"
+                                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                      }`}
+                                    >
+                                      Yes
+                                    </button>
+                                  </div>
+                                </div>
+                                
+                                {isYes && (
+                                  <div className="mt-2 pt-2 border-t border-[#c8102e]/20 ml-9">
+                                    {hasDetails ? (
+                                      <div className="flex items-center justify-between text-xs">
+                                        <span className="text-green-600 flex items-center gap-1">
+                                          <CheckCircleOutlined /> Details provided
+                                        </span>
+                                        <button
+                                          type="button"
+                                          onClick={() => {
+                                            setCurrentMedicalQuestion(`${dep.id}:${q.id}`);
+                                            setMedicalDetailsModalOpen(true);
+                                          }}
+                                          className="text-[#0a3d62] hover:underline"
+                                        >
+                                          View/Edit
+                                        </button>
+                                      </div>
+                                    ) : (
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setCurrentMedicalQuestion(`${dep.id}:${q.id}`);
+                                          setMedicalDetailsModalOpen(true);
+                                        }}
+                                        className="text-xs px-3 py-1 bg-[#c8102e] text-white rounded hover:bg-[#a00d25] transition-colors"
+                                      >
+                                        Add Details
+                                      </button>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </Panel>
+                  );
+                })}
               </Collapse>
             </div>
           )}
