@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Select, Collapse } from "antd";
+import { Select, Checkbox, Collapse } from "antd";
 import { DownOutlined, CheckOutlined } from "@ant-design/icons";
 
 // Deductible options with premium multipliers
