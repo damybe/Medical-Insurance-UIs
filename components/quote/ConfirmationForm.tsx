@@ -70,6 +70,159 @@ const countryOptions = [
   { value: "India", label: "India" },
 ];
 
+// Cambodia Address Data - Hierarchical structure
+const cambodiaAddressData: Record<string, Record<string, Record<string, string[]>>> = {
+  "Phnom Penh": {
+    "Chamkarmon": {
+      "Tonle Bassac": ["Phum 1", "Phum 2", "Phum 3"],
+      "Boeung Keng Kang I": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+      "Boeung Keng Kang II": ["Phum 1", "Phum 2"],
+      "Boeung Keng Kang III": ["Phum 1", "Phum 2", "Phum 3"],
+      "Olympic": ["Phum 1", "Phum 2", "Phum 3"],
+      "Toul Svay Prey I": ["Phum 1", "Phum 2", "Phum 3"],
+      "Toul Svay Prey II": ["Phum 1", "Phum 2"],
+    },
+    "Daun Penh": {
+      "Phsar Thmei I": ["Phum 1", "Phum 2", "Phum 3"],
+      "Phsar Thmei II": ["Phum 1", "Phum 2"],
+      "Phsar Thmei III": ["Phum 1", "Phum 2", "Phum 3"],
+      "Wat Phnom": ["Phum 1", "Phum 2"],
+      "Srah Chak": ["Phum 1", "Phum 2", "Phum 3"],
+      "Phsar Kandal I": ["Phum 1", "Phum 2"],
+      "Phsar Kandal II": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+    "7 Makara": {
+      "Veal Vong": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+      "Mittapheap": ["Phum 1", "Phum 2", "Phum 3"],
+      "Monourom": ["Phum 1", "Phum 2"],
+      "Ou Ruessei I": ["Phum 1", "Phum 2", "Phum 3"],
+      "Ou Ruessei II": ["Phum 1", "Phum 2"],
+      "Ou Ruessei III": ["Phum 1", "Phum 2", "Phum 3"],
+      "Ou Ruessei IV": ["Phum 1", "Phum 2"],
+    },
+    "Toul Kork": {
+      "Boeung Kak I": ["Phum 1", "Phum 2", "Phum 3"],
+      "Boeung Kak II": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+      "Phsar Depou I": ["Phum 1", "Phum 2"],
+      "Phsar Depou II": ["Phum 1", "Phum 2", "Phum 3"],
+      "Phsar Depou III": ["Phum 1", "Phum 2"],
+      "Toul Sangke": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+    "Mean Chey": {
+      "Chak Angre Krom": ["Phum 1", "Phum 2", "Phum 3"],
+      "Chak Angre Leu": ["Phum 1", "Phum 2"],
+      "Stueng Meanchey": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+      "Boeung Tompun": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+    "Sen Sok": {
+      "Khmuonh": ["Phum 1", "Phum 2", "Phum 3"],
+      "Phnom Penh Thmey": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+      "Teuk Thla": ["Phum 1", "Phum 2", "Phum 3"],
+      "Krang Thnong": ["Phum 1", "Phum 2"],
+    },
+    "Russey Keo": {
+      "Tuol Sangke": ["Phum 1", "Phum 2", "Phum 3"],
+      "Kilomet Lekh Prammuoy": ["Phum 1", "Phum 2"],
+      "Russey Keo": ["Phum 1", "Phum 2", "Phum 3"],
+      "Svay Pak": ["Phum 1", "Phum 2"],
+    },
+  },
+  "Siem Reap": {
+    "Siem Reap": {
+      "Svay Dangkum": ["Phum Wat Bo", "Phum Taphul", "Phum Sala Kamraeuk"],
+      "Sala Kamraeuk": ["Phum 1", "Phum 2", "Phum 3"],
+      "Sla Kram": ["Phum 1", "Phum 2"],
+      "Kouk Chak": ["Phum 1", "Phum 2", "Phum 3"],
+      "Chreav": ["Phum 1", "Phum 2"],
+    },
+    "Angkor Chum": {
+      "Char Chhuk": ["Phum 1", "Phum 2"],
+      "Doun Peng": ["Phum 1", "Phum 2", "Phum 3"],
+      "Kouk Doung": ["Phum 1", "Phum 2"],
+    },
+    "Puok": {
+      "Lvea": ["Phum 1", "Phum 2", "Phum 3"],
+      "Puok": ["Phum 1", "Phum 2"],
+      "Prey Chruk": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+  },
+  "Battambang": {
+    "Battambang": {
+      "Svay Por": ["Phum 1", "Phum 2", "Phum 3"],
+      "Preaek Preah Sdach": ["Phum 1", "Phum 2"],
+      "Kampong Krabei": ["Phum 1", "Phum 2", "Phum 3"],
+      "Ou Mal": ["Phum 1", "Phum 2"],
+      "Rotanak": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+    },
+    "Sangkae": {
+      "Anlong Vil": ["Phum 1", "Phum 2"],
+      "Norea": ["Phum 1", "Phum 2", "Phum 3"],
+      "Reang Kesei": ["Phum 1", "Phum 2"],
+    },
+    "Banan": {
+      "Bay Damram": ["Phum 1", "Phum 2"],
+      "Chheu Teal": ["Phum 1", "Phum 2", "Phum 3"],
+      "Kantueu Muoy": ["Phum 1", "Phum 2"],
+    },
+  },
+  "Kandal": {
+    "Ta Khmau": {
+      "Ta Khmau": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+      "Preaek Russei": ["Phum 1", "Phum 2"],
+      "Kampong Samnanh": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+    "Kien Svay": {
+      "Koki": ["Phum 1", "Phum 2", "Phum 3"],
+      "Preaek Aeng": ["Phum 1", "Phum 2"],
+      "Preaek Kdam": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+    "Ang Snuol": {
+      "Chheu Teal": ["Phum 1", "Phum 2"],
+      "Preaek Thmei": ["Phum 1", "Phum 2", "Phum 3"],
+      "Roka Khpos": ["Phum 1", "Phum 2"],
+    },
+  },
+  "Kampong Cham": {
+    "Kampong Cham": {
+      "Veal Vong": ["Phum 1", "Phum 2", "Phum 3"],
+      "Boeng Kok": ["Phum 1", "Phum 2"],
+      "Kampong Cham": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+    },
+    "Prey Chhor": {
+      "Chrey Vien": ["Phum 1", "Phum 2"],
+      "Kor": ["Phum 1", "Phum 2", "Phum 3"],
+      "Prey Khla": ["Phum 1", "Phum 2"],
+    },
+    "Chamkar Leu": {
+      "Chamkar Andoung": ["Phum 1", "Phum 2", "Phum 3"],
+      "Lvea Leu": ["Phum 1", "Phum 2"],
+      "Soutip": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+  },
+  "Sihanoukville": {
+    "Mittakpheap": {
+      "Sangkat 1": ["Village 1", "Village 2", "Village 3"],
+      "Sangkat 2": ["Village 1", "Village 2"],
+      "Sangkat 3": ["Village 1", "Village 2", "Village 3"],
+      "Sangkat 4": ["Village 1", "Village 2"],
+    },
+    "Prey Nob": {
+      "Prey Nob": ["Phum 1", "Phum 2", "Phum 3"],
+      "Ou Oknha Heng": ["Phum 1", "Phum 2"],
+      "Ream": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+    "Stung Hav": {
+      "Stung Hav": ["Phum 1", "Phum 2"],
+      "Ou Treh": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+  },
+};
+
+const cityOptions = Object.keys(cambodiaAddressData).map(city => ({
+  value: city,
+  label: city,
+}));
+
 const nationalityOptions = [
   { value: "Cambodian", label: "Cambodian" },
   { value: "Thai", label: "Thai" },
@@ -190,6 +343,99 @@ export default function ConfirmationForm({
   const [editingDependentIndex, setEditingDependentIndex] = useState<number | null>(null);
   const [dependentModalOpen, setDependentModalOpen] = useState(false);
   const [dependentForm] = Form.useForm();
+
+  // Residential address cascading state
+  const [residentialCity, setResidentialCity] = useState<string | null>(null);
+  const [residentialDistrict, setResidentialDistrict] = useState<string | null>(null);
+  const [residentialCommune, setResidentialCommune] = useState<string | null>(null);
+
+  // Correspondence address cascading state
+  const [correspondenceCity, setCorrespondenceCity] = useState<string | null>(null);
+  const [correspondenceDistrict, setCorrespondenceDistrict] = useState<string | null>(null);
+  const [correspondenceCommune, setCorrespondenceCommune] = useState<string | null>(null);
+
+  // Get district options based on selected city
+  const getDistrictOptions = (city: string | null) => {
+    if (!city || !cambodiaAddressData[city]) return [];
+    return Object.keys(cambodiaAddressData[city]).map(district => ({
+      value: district,
+      label: district,
+    }));
+  };
+
+  // Get commune options based on selected city and district
+  const getCommuneOptions = (city: string | null, district: string | null) => {
+    if (!city || !district || !cambodiaAddressData[city]?.[district]) return [];
+    return Object.keys(cambodiaAddressData[city][district]).map(commune => ({
+      value: commune,
+      label: commune,
+    }));
+  };
+
+  // Get village options based on selected city, district, and commune
+  const getVillageOptions = (city: string | null, district: string | null, commune: string | null) => {
+    if (!city || !district || !commune || !cambodiaAddressData[city]?.[district]?.[commune]) return [];
+    return cambodiaAddressData[city][district][commune].map(village => ({
+      value: village,
+      label: village,
+    }));
+  };
+
+  // Handle city change - reset dependent fields
+  const handleCityChange = (value: string, prefix: "residential" | "correspondence") => {
+    if (prefix === "residential") {
+      setResidentialCity(value);
+      setResidentialDistrict(null);
+      setResidentialCommune(null);
+      form.setFieldsValue({
+        residentialDistrict: undefined,
+        residentialCommune: undefined,
+        residentialVillage: undefined,
+      });
+    } else {
+      setCorrespondenceCity(value);
+      setCorrespondenceDistrict(null);
+      setCorrespondenceCommune(null);
+      form.setFieldsValue({
+        correspondenceDistrict: undefined,
+        correspondenceCommune: undefined,
+        correspondenceVillage: undefined,
+      });
+    }
+    handleAddressFieldChange(prefix);
+  };
+
+  // Handle district change - reset dependent fields
+  const handleDistrictChange = (value: string, prefix: "residential" | "correspondence") => {
+    if (prefix === "residential") {
+      setResidentialDistrict(value);
+      setResidentialCommune(null);
+      form.setFieldsValue({
+        residentialCommune: undefined,
+        residentialVillage: undefined,
+      });
+    } else {
+      setCorrespondenceDistrict(value);
+      setCorrespondenceCommune(null);
+      form.setFieldsValue({
+        correspondenceCommune: undefined,
+        correspondenceVillage: undefined,
+      });
+    }
+    handleAddressFieldChange(prefix);
+  };
+
+  // Handle commune change - reset village
+  const handleCommuneChange = (value: string, prefix: "residential" | "correspondence") => {
+    if (prefix === "residential") {
+      setResidentialCommune(value);
+      form.setFieldsValue({ residentialVillage: undefined });
+    } else {
+      setCorrespondenceCommune(value);
+      form.setFieldsValue({ correspondenceVillage: undefined });
+    }
+    handleAddressFieldChange(prefix);
+  };
 
   // Auto-generate full address
   const generateFullAddress = (prefix: string) => {
@@ -604,10 +850,16 @@ export default function ConfirmationForm({
 
               <Form.Item
                 name="residentialCity"
-                label={<FormLabel khmer="ក្រុង/ខេត្ត" english="City" required />}
-                rules={[{ required: true, message: "Please enter city" }]}
+                label={<FormLabel khmer="ក្រុង/ខេត្ត" english="City/Province" required />}
+                rules={[{ required: true, message: "Please select city" }]}
               >
-                <Input size="large" placeholder="Enter city" onChange={() => handleAddressFieldChange("residential")} />
+                <Select 
+                  size="large" 
+                  placeholder="Select city/province" 
+                  options={cityOptions}
+                  showSearch
+                  onChange={(value) => handleCityChange(value, "residential")}
+                />
               </Form.Item>
             </div>
 
@@ -616,21 +868,42 @@ export default function ConfirmationForm({
                 name="residentialDistrict"
                 label={<FormLabel khmer="ស្រុក/ខណ្ឌ" english="District" />}
               >
-                <Input size="large" placeholder="Enter district" onChange={() => handleAddressFieldChange("residential")} />
+                <Select 
+                  size="large" 
+                  placeholder="Select district" 
+                  options={getDistrictOptions(residentialCity)}
+                  showSearch
+                  disabled={!residentialCity}
+                  onChange={(value) => handleDistrictChange(value, "residential")}
+                />
               </Form.Item>
 
               <Form.Item
                 name="residentialCommune"
                 label={<FormLabel khmer="ឃុំ/សង្កាត់" english="Commune" />}
               >
-                <Input size="large" placeholder="Enter commune" onChange={() => handleAddressFieldChange("residential")} />
+                <Select 
+                  size="large" 
+                  placeholder="Select commune" 
+                  options={getCommuneOptions(residentialCity, residentialDistrict)}
+                  showSearch
+                  disabled={!residentialDistrict}
+                  onChange={(value) => handleCommuneChange(value, "residential")}
+                />
               </Form.Item>
 
               <Form.Item
                 name="residentialVillage"
                 label={<FormLabel khmer="ភូមិ" english="Village" />}
               >
-                <Input size="large" placeholder="Enter village" onChange={() => handleAddressFieldChange("residential")} />
+                <Select 
+                  size="large" 
+                  placeholder="Select village" 
+                  options={getVillageOptions(residentialCity, residentialDistrict, residentialCommune)}
+                  showSearch
+                  disabled={!residentialCommune}
+                  onChange={() => handleAddressFieldChange("residential")}
+                />
               </Form.Item>
 
               <Form.Item
@@ -696,10 +969,16 @@ export default function ConfirmationForm({
 
                   <Form.Item
                     name="correspondenceCity"
-                    label={<FormLabel khmer="ក្រុង/ខេត��ត" english="City" required />}
-                    rules={[{ required: !sameAsResidential, message: "Please enter city" }]}
+                    label={<FormLabel khmer="ក្រុង/ខេត្ត" english="City/Province" required />}
+                    rules={[{ required: !sameAsResidential, message: "Please select city" }]}
                   >
-                    <Input size="large" placeholder="Enter city" onChange={() => handleAddressFieldChange("correspondence")} />
+                    <Select 
+                      size="large" 
+                      placeholder="Select city/province" 
+                      options={cityOptions}
+                      showSearch
+                      onChange={(value) => handleCityChange(value, "correspondence")}
+                    />
                   </Form.Item>
                 </div>
 
@@ -708,21 +987,42 @@ export default function ConfirmationForm({
                     name="correspondenceDistrict"
                     label={<FormLabel khmer="ស្រុក/ខណ្ឌ" english="District" />}
                   >
-                    <Input size="large" placeholder="Enter district" onChange={() => handleAddressFieldChange("correspondence")} />
+                    <Select 
+                      size="large" 
+                      placeholder="Select district" 
+                      options={getDistrictOptions(correspondenceCity)}
+                      showSearch
+                      disabled={!correspondenceCity}
+                      onChange={(value) => handleDistrictChange(value, "correspondence")}
+                    />
                   </Form.Item>
 
                   <Form.Item
                     name="correspondenceCommune"
                     label={<FormLabel khmer="ឃុំ/សង្កាត់" english="Commune" />}
                   >
-                    <Input size="large" placeholder="Enter commune" onChange={() => handleAddressFieldChange("correspondence")} />
+                    <Select 
+                      size="large" 
+                      placeholder="Select commune" 
+                      options={getCommuneOptions(correspondenceCity, correspondenceDistrict)}
+                      showSearch
+                      disabled={!correspondenceDistrict}
+                      onChange={(value) => handleCommuneChange(value, "correspondence")}
+                    />
                   </Form.Item>
 
                   <Form.Item
                     name="correspondenceVillage"
                     label={<FormLabel khmer="ភូមិ" english="Village" />}
                   >
-                    <Input size="large" placeholder="Enter village" onChange={() => handleAddressFieldChange("correspondence")} />
+                    <Select 
+                      size="large" 
+                      placeholder="Select village" 
+                      options={getVillageOptions(correspondenceCity, correspondenceDistrict, correspondenceCommune)}
+                      showSearch
+                      disabled={!correspondenceCommune}
+                      onChange={() => handleAddressFieldChange("correspondence")}
+                    />
                   </Form.Item>
 
                   <Form.Item
