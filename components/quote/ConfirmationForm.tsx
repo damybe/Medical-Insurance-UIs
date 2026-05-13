@@ -6,7 +6,7 @@ import {
   Input,
   Select,
   DatePicker,
-  Radio,
+  Switch,
   Checkbox,
   Upload,
   Collapse,
@@ -1152,14 +1152,18 @@ export default function ConfirmationForm({
             />
 
             <div className="mb-6">
-              <p className="text-gray-700 mb-3">Are you presently insured with another insurance company?</p>
-              <Radio.Group
-                value={hasExistingInsurance}
-                onChange={(e) => setHasExistingInsurance(e.target.value)}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <p className="text-gray-700">Are you presently insured with another insurance company?</p>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-500">No</span>
+                  <Switch
+                    checked={hasExistingInsurance === true}
+                    onChange={(checked) => setHasExistingInsurance(checked)}
+                    className={hasExistingInsurance ? "bg-[#c8102e]" : ""}
+                  />
+                  <span className="text-sm text-gray-500">Yes</span>
+                </div>
+              </div>
             </div>
 
             {hasExistingInsurance && (
@@ -1201,14 +1205,18 @@ export default function ConfirmationForm({
             />
 
             <div className="mb-6">
-              <p className="text-gray-700 mb-3">Would you like your policy to commence immediately upon acceptance?</p>
-              <Radio.Group
-                value={immediateCommencement}
-                onChange={(e) => setImmediateCommencement(e.target.value)}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <p className="text-gray-700">Would you like your policy to commence immediately upon acceptance?</p>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-500">No</span>
+                  <Switch
+                    checked={immediateCommencement === true}
+                    onChange={(checked) => setImmediateCommencement(checked)}
+                    className={immediateCommencement ? "bg-[#c8102e]" : ""}
+                  />
+                  <span className="text-sm text-gray-500">Yes</span>
+                </div>
+              </div>
             </div>
 
             {immediateCommencement === false && (
@@ -1284,16 +1292,20 @@ export default function ConfirmationForm({
 
             <div className="space-y-6">
               <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-gray-700 mb-3">
-                  Does your occupation involve any of the following: Working in high-risk environment (e.g. mine, oil rigs, construction sites)? Operating or being exposed to heavy industrial equipment? Handling toxic chemicals or biological hazards?
-                </p>
-                <Radio.Group
-                  value={occupationRisk}
-                  onChange={(e) => setOccupationRisk(e.target.value)}
-                >
-                  <Radio value={true}>Yes</Radio>
-                  <Radio value={false}>No</Radio>
-                </Radio.Group>
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <p className="text-gray-700 flex-1">
+                    Does your occupation involve any of the following: Working in high-risk environment (e.g. mine, oil rigs, construction sites)? Operating or being exposed to heavy industrial equipment? Handling toxic chemicals or biological hazards?
+                  </p>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="text-sm text-gray-500">No</span>
+                    <Switch
+                      checked={occupationRisk === true}
+                      onChange={(checked) => setOccupationRisk(checked)}
+                      className={occupationRisk ? "bg-[#c8102e]" : ""}
+                    />
+                    <span className="text-sm text-gray-500">Yes</span>
+                  </div>
+                </div>
 
                 {occupationRisk === false && (
                   <div className="mt-4">
@@ -1308,16 +1320,20 @@ export default function ConfirmationForm({
               </div>
 
               <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-gray-700 mb-3">
-                  Do you engage in any high-risk or hazardous recreational activities or hobbies? (e.g., Skydiving, Paragliding, Scuba diving, Rock climbing, Motor racing, etc.)
-                </p>
-                <Radio.Group
-                  value={hazardousActivities}
-                  onChange={(e) => setHazardousActivities(e.target.value)}
-                >
-                  <Radio value={true}>Yes</Radio>
-                  <Radio value={false}>No</Radio>
-                </Radio.Group>
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <p className="text-gray-700 flex-1">
+                    Do you engage in any high-risk or hazardous recreational activities or hobbies? (e.g., Skydiving, Paragliding, Scuba diving, Rock climbing, Motor racing, etc.)
+                  </p>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="text-sm text-gray-500">No</span>
+                    <Switch
+                      checked={hazardousActivities === true}
+                      onChange={(checked) => setHazardousActivities(checked)}
+                      className={hazardousActivities ? "bg-[#c8102e]" : ""}
+                    />
+                    <span className="text-sm text-gray-500">Yes</span>
+                  </div>
+                </div>
 
                 {hazardousActivities === true && (
                   <div className="mt-4">
@@ -1350,35 +1366,37 @@ export default function ConfirmationForm({
             <div className="space-y-4">
               {medicalQuestions.map((q) => (
                 <div key={q.id} className="p-4 bg-gray-50 rounded-lg">
-                  <p className="text-gray-700 mb-3 text-sm">{q.question}</p>
-                  <div className="flex items-center gap-4">
-                    <Radio.Group
-                      value={medicalAnswers[q.id]?.answer}
-                      onChange={(e) => handleMedicalAnswer(q.id, e.target.value)}
-                    >
-                      <Radio value={true}>Yes</Radio>
-                      <Radio value={false}>No</Radio>
-                    </Radio.Group>
-                    {medicalAnswers[q.id]?.answer === true && medicalAnswers[q.id]?.details && (
-                      <div className="flex items-center gap-2">
-                        <span className="text-green-600 text-sm flex items-center gap-1">
-                          <CheckCircleOutlined /> Details provided
-                        </span>
-                        <Button
-                          type="link"
-                          size="small"
-                          icon={<EditOutlined />}
-                          onClick={() => {
-                            setCurrentMedicalQuestion(q.id);
-                            setMedicalDetailsModalOpen(true);
-                          }}
-                          className="text-[#0a3d62] p-0"
-                        >
-                          View/Edit
-                        </Button>
-                      </div>
-                    )}
+                  <div className="flex items-start justify-between gap-4">
+                    <p className="text-gray-700 text-sm flex-1">{q.question}</p>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <span className="text-sm text-gray-500">No</span>
+                      <Switch
+                        checked={medicalAnswers[q.id]?.answer === true}
+                        onChange={(checked) => handleMedicalAnswer(q.id, checked)}
+                        className={medicalAnswers[q.id]?.answer ? "bg-[#c8102e]" : ""}
+                      />
+                      <span className="text-sm text-gray-500">Yes</span>
+                    </div>
                   </div>
+                  {medicalAnswers[q.id]?.answer === true && medicalAnswers[q.id]?.details && (
+                    <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-200">
+                      <span className="text-green-600 text-sm flex items-center gap-1">
+                        <CheckCircleOutlined /> Details provided
+                      </span>
+                      <Button
+                        type="link"
+                        size="small"
+                        icon={<EditOutlined />}
+                        onClick={() => {
+                          setCurrentMedicalQuestion(q.id);
+                          setMedicalDetailsModalOpen(true);
+                        }}
+                        className="text-[#0a3d62] p-0"
+                      >
+                        View/Edit
+                      </Button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -1408,36 +1426,38 @@ export default function ConfirmationForm({
                     <div className="space-y-4">
                       {medicalQuestions.map((q) => (
                         <div key={q.id} className="p-4 bg-gray-50 rounded-lg">
-                          <p className="text-gray-700 mb-3 text-sm">{q.question}</p>
-                          <div className="flex items-center gap-4">
-                            <Radio.Group
-                              value={dependentMedicalAnswers[dep.id]?.[q.id]?.answer}
-                              onChange={(e) => handleMedicalAnswer(q.id, e.target.value, dep.id)}
-                            >
-                              <Radio value={true}>Yes</Radio>
-                              <Radio value={false}>No</Radio>
-                            </Radio.Group>
-                            {dependentMedicalAnswers[dep.id]?.[q.id]?.answer === true &&
-                              dependentMedicalAnswers[dep.id]?.[q.id]?.details && (
-                                <div className="flex items-center gap-2">
-                                  <span className="text-green-600 text-sm flex items-center gap-1">
-                                    <CheckCircleOutlined /> Details provided
-                                  </span>
-                                  <Button
-                                    type="link"
-                                    size="small"
-                                    icon={<EditOutlined />}
-                                    onClick={() => {
-                                      setCurrentMedicalQuestion(`${dep.id}:${q.id}`);
-                                      setMedicalDetailsModalOpen(true);
-                                    }}
-                                    className="text-[#0a3d62] p-0"
-                                  >
-                                    View/Edit
-                                  </Button>
-                                </div>
-                              )}
+                          <div className="flex items-start justify-between gap-4">
+                            <p className="text-gray-700 text-sm flex-1">{q.question}</p>
+                            <div className="flex items-center gap-2 shrink-0">
+                              <span className="text-sm text-gray-500">No</span>
+                              <Switch
+                                checked={dependentMedicalAnswers[dep.id]?.[q.id]?.answer === true}
+                                onChange={(checked) => handleMedicalAnswer(q.id, checked, dep.id)}
+                                className={dependentMedicalAnswers[dep.id]?.[q.id]?.answer ? "bg-[#c8102e]" : ""}
+                              />
+                              <span className="text-sm text-gray-500">Yes</span>
+                            </div>
                           </div>
+                          {dependentMedicalAnswers[dep.id]?.[q.id]?.answer === true &&
+                            dependentMedicalAnswers[dep.id]?.[q.id]?.details && (
+                              <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-200">
+                                <span className="text-green-600 text-sm flex items-center gap-1">
+                                  <CheckCircleOutlined /> Details provided
+                                </span>
+                                <Button
+                                  type="link"
+                                  size="small"
+                                  icon={<EditOutlined />}
+                                  onClick={() => {
+                                    setCurrentMedicalQuestion(`${dep.id}:${q.id}`);
+                                    setMedicalDetailsModalOpen(true);
+                                  }}
+                                  className="text-[#0a3d62] p-0"
+                                >
+                                  View/Edit
+                                </Button>
+                              </div>
+                            )}
                         </div>
                       ))}
                     </div>
