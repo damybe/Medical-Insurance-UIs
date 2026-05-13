@@ -97,13 +97,6 @@ export default function QuotationReview({
     });
   };
 
-  const calculateTotalPremium = () => {
-    const selectedPlansDetails = getSelectedPlansDetails();
-    const planTotal = selectedPlansDetails.reduce((sum, plan) => sum + (plan?.basePremium || 0), 0);
-    const membersCount = 1 + dependents.length;
-    return planTotal * membersCount;
-  };
-
   const handleDownload = () => {
     // Create a simple text-based quotation for download
     const quotationContent = generateQuotationText();
@@ -121,7 +114,6 @@ export default function QuotationReview({
 
   const generateQuotationText = () => {
     const selectedPlansDetails = getSelectedPlansDetails();
-    const totalPremium = calculateTotalPremium();
 
     let content = `
 ================================================================================
@@ -168,12 +160,6 @@ Annual Premium: $${plan?.basePremium?.toLocaleString()}/person
 
     content += `
 --------------------------------------------------------------------------------
-                              PREMIUM SUMMARY
---------------------------------------------------------------------------------
-Number of Insured Members: ${1 + dependents.length}
-Total Annual Premium: $${totalPremium.toLocaleString()}
-
---------------------------------------------------------------------------------
                               TERMS & CONDITIONS
 --------------------------------------------------------------------------------
 - This quotation is valid for 30 days from the date of issue.
@@ -205,7 +191,6 @@ Total Annual Premium: $${totalPremium.toLocaleString()}
   };
 
   const selectedPlansDetails = getSelectedPlansDetails();
-  const totalPremium = calculateTotalPremium();
 
   return (
     <div className="flex-1 bg-gray-50 py-8">
@@ -351,21 +336,6 @@ Total Annual Premium: $${totalPremium.toLocaleString()}
             )}
           </div>
 
-          {/* Premium Summary */}
-          <div className="px-8 py-6 bg-gradient-to-r from-[#0a3d62] to-[#0a3d62]/90 text-white">
-            <div className="flex justify-between items-center">
-              <div>
-                <p className="text-white/80 text-sm">Total Annual Premium</p>
-                <p className="text-xs text-white/60 mt-1">
-                  For {1 + dependents.length} insured member(s)
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-3xl font-bold">${totalPremium.toLocaleString()}</p>
-                <p className="text-white/60 text-sm">/year</p>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Action Buttons */}
