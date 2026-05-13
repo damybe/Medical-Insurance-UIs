@@ -440,9 +440,10 @@ export default function ConfirmationForm({
   // Auto-generate full address
   const generateFullAddress = (prefix: string) => {
     const values = form.getFieldsValue();
+    const streetNo = values[`${prefix}StreetNo`];
     const parts = [
       values[`${prefix}HouseNo`],
-      values[`${prefix}StreetNo`],
+      streetNo ? `ST. ${streetNo}` : null,
       values[`${prefix}Village`],
       values[`${prefix}Commune`],
       values[`${prefix}District`],
