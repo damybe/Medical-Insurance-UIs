@@ -441,7 +441,7 @@ export default function ConfirmationForm({
   const generateFullAddress = (prefix: string) => {
     const values = form.getFieldsValue();
     const streetNo = values[`${prefix}StreetNo`];
-    const streetNo = values[`${prefix}StreetNo`];
+    const  = values[`${prefix}StreetNo`];
     const parts = [
       values[`${prefix}HouseNo`],
       streetNo ? `ST. ${streetNo}` : null,
