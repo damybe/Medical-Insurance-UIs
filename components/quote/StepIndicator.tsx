@@ -56,6 +56,14 @@ export default function StepIndicator({
       isActive: currentStep === 4,
       isCompleted: currentStep > 4,
     },
+    {
+      number: 5,
+      titleKh: "បំពេញពាក្យសុំ",
+      titleEn: "Application",
+      subtitle: "Final details",
+      isActive: currentStep === 5,
+      isCompleted: currentStep > 5,
+    },
   ];
 
   return (

@@ -31,6 +31,7 @@ interface QuotationReviewProps {
   dependents: Dependent[];
   planData: PlanData | null;
   onBack: () => void;
+  onProceed?: () => void;
 }
 
 // Plan definitions (same as in SelectPlanForm for reference)
@@ -82,6 +83,7 @@ export default function QuotationReview({
   dependents,
   planData,
   onBack,
+  onProceed,
 }: QuotationReviewProps) {
   const [emailModalOpen, setEmailModalOpen] = useState(false);
   const [email, setEmail] = useState("");
@@ -439,14 +441,24 @@ Annual Premium: $${plan?.basePremium?.toLocaleString()}/person
                   Download Quotation
                 </Button>
                 <Button
-                  type="primary"
                   size="large"
                   icon={<MailOutlined />}
                   onClick={() => setEmailModalOpen(true)}
-                  className="flex items-center gap-2 h-12 px-6 bg-[#c8102e] hover:bg-[#a00d25] border-0"
+                  className="flex items-center gap-2 h-12 px-6 border-[#0a3d62] text-[#0a3d62] hover:bg-[#0a3d62]/5"
                 >
                   Email Quotation
                 </Button>
+                {onProceed && (
+                  <Button
+                    type="primary"
+                    size="large"
+                    onClick={onProceed}
+                    className="flex items-center gap-2 h-12 px-6 bg-[#c8102e] hover:bg-[#a00d25] border-0"
+                  >
+                    Proceed to Application
+                    <span>&#8594;</span>
+                  </Button>
+                )}
               </>
             )}
           </div>

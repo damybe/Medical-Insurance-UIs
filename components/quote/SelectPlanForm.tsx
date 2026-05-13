@@ -832,7 +832,7 @@ export default function SelectPlanForm({ onContinue, onBack }: SelectPlanFormPro
           <span>←</span>
           Back
         </button>
-        <div className="text-sm text-gray-500">Step 3 of 4</div>
+        <div className="text-sm text-gray-500">Step 3 of 5</div>
         <button
           onClick={handleContinue}
           className="bg-[#c8102e] hover:bg-[#a00d25] text-white px-8 py-3 rounded-lg font-medium flex items-center gap-2 transition-colors"
