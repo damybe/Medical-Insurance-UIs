@@ -89,6 +89,7 @@ export default function QuotationReview({
   const [email, setEmail] = useState("");
   const [sendingEmail, setSendingEmail] = useState(false);
   const [quotationGenerated, setQuotationGenerated] = useState(false);
+  const [selectedPlanForApplication, setSelectedPlanForApplication] = useState<string | null>(null);
 
   const quotationNumber = `QT-${Date.now().toString().slice(-8)}`;
   const quotationDate = new Date().toLocaleDateString("en-US", {
@@ -331,44 +332,71 @@ Annual Premium: $${plan?.basePremium?.toLocaleString()}/person
               </div>
               <div>
                 <h2 className="text-lg font-semibold text-gray-800">Selected Plans</h2>
-                <p className="text-sm text-gray-500">{selectedPlansDetails.length} plan(s) selected</p>
+                <p className="text-sm text-gray-500">
+                  {selectedPlansDetails.length} plan(s) available - Select one to proceed
+                </p>
               </div>
             </div>
             {selectedPlansDetails.length > 0 ? (
               <div className="ml-13 space-y-4">
-                {selectedPlansDetails.map((plan, index) => (
-                  <div
-                    key={index}
-                    className="border border-gray-200 rounded-lg p-4 bg-white hover:shadow-sm transition-shadow"
-                  >
-                    <div className="flex justify-between items-start">
-                      <div className="flex items-center gap-3">
-                        <div
-                          className="w-3 h-3 rounded-full"
-                          style={{ backgroundColor: plan?.color || "#6b7280" }}
-                        />
-                        <div>
-                          <h3 className="font-semibold text-gray-800">
-                            {plan?.name} - {plan?.type}
-                          </h3>
-                          <div className="flex items-center gap-1 mt-1 text-sm text-gray-500">
-                            <GlobalOutlined className="text-xs" />
-                            <span>{plan?.geoCoverage}</span>
+                {selectedPlansDetails.map((plan, index) => {
+                  const isSelected = selectedPlanForApplication === plan?.id;
+                  return (
+                    <label
+                      key={index}
+                      className={`block cursor-pointer border-2 rounded-lg p-4 transition-all ${
+                        isSelected
+                          ? "border-[#c8102e] bg-[#fff8f8] shadow-sm"
+                          : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm"
+                      }`}
+                      onClick={() => setSelectedPlanForApplication(plan?.id || null)}
+                    >
+                      <div className="flex justify-between items-start">
+                        <div className="flex items-center gap-3">
+                          {/* Custom Radio Button */}
+                          <div
+                            className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
+                              isSelected
+                                ? "border-[#c8102e] bg-[#c8102e]"
+                                : "border-gray-300 bg-white"
+                            }`}
+                          >
+                            {isSelected && (
+                              <div className="w-2 h-2 rounded-full bg-white" />
+                            )}
+                          </div>
+                          <div
+                            className="w-3 h-3 rounded-full"
+                            style={{ backgroundColor: plan?.color || "#6b7280" }}
+                          />
+                          <div>
+                            <h3 className="font-semibold text-gray-800">
+                              {plan?.name} - {plan?.type}
+                            </h3>
+                            <div className="flex items-center gap-1 mt-1 text-sm text-gray-500">
+                              <GlobalOutlined className="text-xs" />
+                              <span>{plan?.geoCoverage}</span>
+                            </div>
                           </div>
                         </div>
+                        <div className="text-right">
+                          <p className="text-lg font-bold text-[#0a3d62]">
+                            ${plan?.basePremium?.toLocaleString()}
+                          </p>
+                          <p className="text-xs text-gray-500">/person/year</p>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-lg font-bold text-[#0a3d62]">
-                          ${plan?.basePremium?.toLocaleString()}
-                        </p>
-                        <p className="text-xs text-gray-500">/person/year</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                    </label>
+                  );
+                })}
               </div>
             ) : (
               <p className="ml-13 text-gray-500 text-sm">No plans selected.</p>
+            )}
+            {selectedPlansDetails.length > 0 && !selectedPlanForApplication && quotationGenerated && (
+              <p className="ml-13 mt-3 text-sm text-[#c8102e]">
+                Please select a plan to proceed to the application.
+              </p>
             )}
           </div>
 
@@ -453,7 +481,12 @@ Annual Premium: $${plan?.basePremium?.toLocaleString()}/person
                     type="primary"
                     size="large"
                     onClick={onProceed}
-                    className="flex items-center gap-2 h-12 px-6 bg-[#c8102e] hover:bg-[#a00d25] border-0"
+                    disabled={!selectedPlanForApplication}
+                    className={`flex items-center gap-2 h-12 px-6 border-0 ${
+                      selectedPlanForApplication
+                        ? "bg-[#c8102e] hover:bg-[#a00d25]"
+                        : "bg-gray-300 cursor-not-allowed"
+                    }`}
                   >
                     Proceed to Application
                     <span>&#8594;</span>
