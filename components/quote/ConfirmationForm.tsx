@@ -441,12 +441,13 @@ export default function ConfirmationForm({
   const generateFullAddress = (prefix: string) => {
     const values = form.getFieldsValue();
     const streetNo = values[`${prefix}StreetNo`];
-    const  = values[`${prefix}StreetNo`];
+    const District = values[`${prefix}District`];
     const parts = [
       values[`${prefix}HouseNo`],
       streetNo ? `ST. ${streetNo}` : null,
       values[`${prefix}Village`],
       values[`${prefix}Commune`],
+      District ? `${District} District` : null,
       values[`${prefix}District`],
       values[`${prefix}City`],
       values[`${prefix}Country`],
