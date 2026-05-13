@@ -6,7 +6,6 @@ import {
   Input,
   Select,
   DatePicker,
-  Switch,
   Checkbox,
   Upload,
   Collapse,
@@ -1154,14 +1153,29 @@ export default function ConfirmationForm({
             <div className="mb-6">
               <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                 <p className="text-gray-700">Are you presently insured with another insurance company?</p>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-500">No</span>
-                  <Switch
-                    checked={hasExistingInsurance === true}
-                    onChange={(checked) => setHasExistingInsurance(checked)}
-                    className={hasExistingInsurance ? "bg-[#c8102e]" : ""}
-                  />
-                  <span className="text-sm text-gray-500">Yes</span>
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => setHasExistingInsurance(false)}
+                    className={`px-4 py-1.5 rounded-l-full text-sm font-medium transition-all ${
+                      hasExistingInsurance === false
+                        ? "bg-[#0a3d62] text-white"
+                        : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                    }`}
+                  >
+                    No
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setHasExistingInsurance(true)}
+                    className={`px-4 py-1.5 rounded-r-full text-sm font-medium transition-all ${
+                      hasExistingInsurance === true
+                        ? "bg-[#c8102e] text-white"
+                        : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                    }`}
+                  >
+                    Yes
+                  </button>
                 </div>
               </div>
             </div>
@@ -1207,14 +1221,29 @@ export default function ConfirmationForm({
             <div className="mb-6">
               <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                 <p className="text-gray-700">Would you like your policy to commence immediately upon acceptance?</p>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-500">No</span>
-                  <Switch
-                    checked={immediateCommencement === true}
-                    onChange={(checked) => setImmediateCommencement(checked)}
-                    className={immediateCommencement ? "bg-[#c8102e]" : ""}
-                  />
-                  <span className="text-sm text-gray-500">Yes</span>
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => setImmediateCommencement(false)}
+                    className={`px-4 py-1.5 rounded-l-full text-sm font-medium transition-all ${
+                      immediateCommencement === false
+                        ? "bg-[#0a3d62] text-white"
+                        : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                    }`}
+                  >
+                    No
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setImmediateCommencement(true)}
+                    className={`px-4 py-1.5 rounded-r-full text-sm font-medium transition-all ${
+                      immediateCommencement === true
+                        ? "bg-[#c8102e] text-white"
+                        : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                    }`}
+                  >
+                    Yes
+                  </button>
                 </div>
               </div>
             </div>
@@ -1296,14 +1325,29 @@ export default function ConfirmationForm({
                   <p className="text-gray-700 flex-1">
                     Does your occupation involve any of the following: Working in high-risk environment (e.g. mine, oil rigs, construction sites)? Operating or being exposed to heavy industrial equipment? Handling toxic chemicals or biological hazards?
                   </p>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className="text-sm text-gray-500">No</span>
-                    <Switch
-                      checked={occupationRisk === true}
-                      onChange={(checked) => setOccupationRisk(checked)}
-                      className={occupationRisk ? "bg-[#c8102e]" : ""}
-                    />
-                    <span className="text-sm text-gray-500">Yes</span>
+                  <div className="flex items-center gap-1 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setOccupationRisk(false)}
+                      className={`px-4 py-1.5 rounded-l-full text-sm font-medium transition-all ${
+                        occupationRisk === false
+                          ? "bg-[#0a3d62] text-white"
+                          : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                      }`}
+                    >
+                      No
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setOccupationRisk(true)}
+                      className={`px-4 py-1.5 rounded-r-full text-sm font-medium transition-all ${
+                        occupationRisk === true
+                          ? "bg-[#c8102e] text-white"
+                          : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                      }`}
+                    >
+                      Yes
+                    </button>
                   </div>
                 </div>
 
@@ -1324,14 +1368,29 @@ export default function ConfirmationForm({
                   <p className="text-gray-700 flex-1">
                     Do you engage in any high-risk or hazardous recreational activities or hobbies? (e.g., Skydiving, Paragliding, Scuba diving, Rock climbing, Motor racing, etc.)
                   </p>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className="text-sm text-gray-500">No</span>
-                    <Switch
-                      checked={hazardousActivities === true}
-                      onChange={(checked) => setHazardousActivities(checked)}
-                      className={hazardousActivities ? "bg-[#c8102e]" : ""}
-                    />
-                    <span className="text-sm text-gray-500">Yes</span>
+                  <div className="flex items-center gap-1 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setHazardousActivities(false)}
+                      className={`px-4 py-1.5 rounded-l-full text-sm font-medium transition-all ${
+                        hazardousActivities === false
+                          ? "bg-[#0a3d62] text-white"
+                          : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                      }`}
+                    >
+                      No
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setHazardousActivities(true)}
+                      className={`px-4 py-1.5 rounded-r-full text-sm font-medium transition-all ${
+                        hazardousActivities === true
+                          ? "bg-[#c8102e] text-white"
+                          : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                      }`}
+                    >
+                      Yes
+                    </button>
                   </div>
                 </div>
 
@@ -1368,14 +1427,29 @@ export default function ConfirmationForm({
                 <div key={q.id} className="p-4 bg-gray-50 rounded-lg">
                   <div className="flex items-start justify-between gap-4">
                     <p className="text-gray-700 text-sm flex-1">{q.question}</p>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span className="text-sm text-gray-500">No</span>
-                      <Switch
-                        checked={medicalAnswers[q.id]?.answer === true}
-                        onChange={(checked) => handleMedicalAnswer(q.id, checked)}
-                        className={medicalAnswers[q.id]?.answer ? "bg-[#c8102e]" : ""}
-                      />
-                      <span className="text-sm text-gray-500">Yes</span>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => handleMedicalAnswer(q.id, false)}
+                        className={`px-4 py-1.5 rounded-l-full text-sm font-medium transition-all ${
+                          medicalAnswers[q.id]?.answer === false
+                            ? "bg-[#0a3d62] text-white"
+                            : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                        }`}
+                      >
+                        No
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleMedicalAnswer(q.id, true)}
+                        className={`px-4 py-1.5 rounded-r-full text-sm font-medium transition-all ${
+                          medicalAnswers[q.id]?.answer === true
+                            ? "bg-[#c8102e] text-white"
+                            : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                        }`}
+                      >
+                        Yes
+                      </button>
                     </div>
                   </div>
                   {medicalAnswers[q.id]?.answer === true && medicalAnswers[q.id]?.details && (
@@ -1428,14 +1502,29 @@ export default function ConfirmationForm({
                         <div key={q.id} className="p-4 bg-gray-50 rounded-lg">
                           <div className="flex items-start justify-between gap-4">
                             <p className="text-gray-700 text-sm flex-1">{q.question}</p>
-                            <div className="flex items-center gap-2 shrink-0">
-                              <span className="text-sm text-gray-500">No</span>
-                              <Switch
-                                checked={dependentMedicalAnswers[dep.id]?.[q.id]?.answer === true}
-                                onChange={(checked) => handleMedicalAnswer(q.id, checked, dep.id)}
-                                className={dependentMedicalAnswers[dep.id]?.[q.id]?.answer ? "bg-[#c8102e]" : ""}
-                              />
-                              <span className="text-sm text-gray-500">Yes</span>
+                            <div className="flex items-center gap-1 shrink-0">
+                              <button
+                                type="button"
+                                onClick={() => handleMedicalAnswer(q.id, false, dep.id)}
+                                className={`px-4 py-1.5 rounded-l-full text-sm font-medium transition-all ${
+                                  dependentMedicalAnswers[dep.id]?.[q.id]?.answer === false
+                                    ? "bg-[#0a3d62] text-white"
+                                    : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                                }`}
+                              >
+                                No
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleMedicalAnswer(q.id, true, dep.id)}
+                                className={`px-4 py-1.5 rounded-r-full text-sm font-medium transition-all ${
+                                  dependentMedicalAnswers[dep.id]?.[q.id]?.answer === true
+                                    ? "bg-[#c8102e] text-white"
+                                    : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                                }`}
+                              >
+                                Yes
+                              </button>
                             </div>
                           </div>
                           {dependentMedicalAnswers[dep.id]?.[q.id]?.answer === true &&
