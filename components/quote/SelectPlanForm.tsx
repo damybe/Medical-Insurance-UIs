@@ -385,20 +385,33 @@ export default function SelectPlanForm({ onContinue, onBack }: SelectPlanFormPro
               </td>
             ))}
           </tr>
-          {/* Add to Quotation Row */}
-          <tr className="border-b border-gray-200 bg-gray-50">
-            <td className="p-3 font-medium text-gray-600 sticky left-0 bg-gray-50">
-              Add to Quotation
-            </td>
-            {standardPlans.map((plan) => (
-              <td key={plan.id} className="p-3 text-center">
-                <Checkbox
-                  checked={selectedPlans.includes(plan.id)}
-                  onChange={(e) => handlePlanToggle(plan.id, e.target.checked)}
-                />
-              </td>
-            ))}
-          </tr>
+                          {/* Add to Quotation Row */}
+                          <tr className="border-b border-gray-200 bg-[#fff8f8]">
+                            <td className="p-3 font-semibold text-[#c8102e] sticky left-0 bg-[#fff8f8]">
+                              Add to Quotation
+                            </td>
+                            {standardPlans.map((plan) => (
+                              <td key={plan.id} className="p-3 text-center">
+                                <label className="inline-flex items-center justify-center cursor-pointer">
+                                  <div className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-all ${
+                                    selectedPlans.includes(plan.id)
+                                      ? "bg-[#c8102e] border-[#c8102e]"
+                                      : "bg-white border-gray-300 hover:border-[#c8102e]"
+                                  }`}>
+                                    {selectedPlans.includes(plan.id) && (
+                                      <CheckOutlined className="text-white text-sm" />
+                                    )}
+                                  </div>
+                                  <input
+                                    type="checkbox"
+                                    className="sr-only"
+                                    checked={selectedPlans.includes(plan.id)}
+                                    onChange={(e) => handlePlanToggle(plan.id, e.target.checked)}
+                                  />
+                                </label>
+                              </td>
+                            ))}
+                          </tr>
           {/* Geographical Coverage Row */}
           <tr className="border-b border-gray-200">
             <td className="p-3 bg-gray-50 font-medium text-gray-600 sticky left-0">

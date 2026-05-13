@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Select, Checkbox, Collapse } from "antd";
+import { Select, Collapse } from "antd";
 import { DownOutlined, CheckOutlined } from "@ant-design/icons";
 
 // Deductible options with premium multipliers
@@ -421,13 +421,24 @@ export default function VerticalPlanCards({
             </div>
 
             {/* Add to Quotation */}
-            <div className="px-5 py-3 bg-gray-50 border-t border-gray-100">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <Checkbox
+            <div className="px-5 py-4 bg-[#fff8f8] border-t-2 border-[#c8102e]/20">
+              <label className="flex items-center gap-3 cursor-pointer group">
+                <div className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-all ${
+                  isSelected
+                    ? "bg-[#c8102e] border-[#c8102e]"
+                    : "bg-white border-gray-300 group-hover:border-[#c8102e]"
+                }`}>
+                  {isSelected && (
+                    <CheckOutlined className="text-white text-sm" />
+                  )}
+                </div>
+                <input
+                  type="checkbox"
+                  className="sr-only"
                   checked={isSelected}
                   onChange={(e) => onPlanToggle(plan.id, e.target.checked)}
                 />
-                <span className="text-sm text-gray-700">Add to Quotation</span>
+                <span className="text-sm font-semibold text-[#c8102e]">Add to Quotation</span>
               </label>
             </div>
           </div>
