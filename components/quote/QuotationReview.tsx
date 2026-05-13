@@ -11,6 +11,7 @@ import {
   TeamOutlined,
   SafetyCertificateOutlined,
   GlobalOutlined,
+  PlusCircleOutlined,
 } from "@ant-design/icons";
 import { PlanData } from "./SelectPlanForm";
 import { Dependent } from "./AddDependentModal";
@@ -54,6 +55,25 @@ const geoLabels: Record<string, string> = {
   "sea-ex-sg": "SEA excl. Singapore",
   "asia-europe-ex": "Asia & Europe excl. SG, HK, UK, CH",
   "worldwide-ex-usa-canada": "Worldwide excl. USA & Canada",
+};
+
+const optionalBenefitLabels: Record<string, { name: string; description: string }> = {
+  maternity: { 
+    name: "Maternity Coverage", 
+    description: "Coverage for pregnancy, childbirth and postnatal care" 
+  },
+  dental: { 
+    name: "Dental Coverage", 
+    description: "Coverage for dental treatments and procedures" 
+  },
+  vision: { 
+    name: "Vision Coverage", 
+    description: "Coverage for eye exams and corrective lenses" 
+  },
+  wellness: { 
+    name: "Wellness Program", 
+    description: "Preventive care and health screening benefits" 
+  },
 };
 
 export default function QuotationReview({
@@ -157,6 +177,18 @@ Geographical Coverage: ${plan?.geoCoverage}
 Annual Premium: $${plan?.basePremium?.toLocaleString()}/person
 `;
     });
+
+    if (planData?.optionalBenefits && planData.optionalBenefits.length > 0) {
+      content += `
+--------------------------------------------------------------------------------
+                            OPTIONAL BENEFITS
+--------------------------------------------------------------------------------
+`;
+      planData.optionalBenefits.forEach((benefitId, index) => {
+        const benefit = optionalBenefitLabels[benefitId];
+        content += `${index + 1}. ${benefit?.name || benefitId}\n`;
+      });
+    }
 
     content += `
 --------------------------------------------------------------------------------
@@ -335,6 +367,42 @@ Annual Premium: $${plan?.basePremium?.toLocaleString()}/person
               <p className="ml-13 text-gray-500 text-sm">No plans selected.</p>
             )}
           </div>
+
+          {/* Optional Benefits Section */}
+          {planData?.optionalBenefits && planData.optionalBenefits.length > 0 && (
+            <div className="px-8 py-6 border-b border-gray-100">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-[#c8102e]/10 flex items-center justify-center">
+                  <PlusCircleOutlined className="text-[#c8102e] text-lg" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-800">Optional Benefits</h2>
+                  <p className="text-sm text-gray-500">{planData.optionalBenefits.length} benefit(s) selected</p>
+                </div>
+              </div>
+              <div className="ml-13 space-y-3">
+                {planData.optionalBenefits.map((benefitId, index) => {
+                  const benefit = optionalBenefitLabels[benefitId];
+                  return (
+                    <div
+                      key={index}
+                      className="flex items-center gap-4 p-3 bg-[#fff8f8] border border-[#c8102e]/20 rounded-lg"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-[#c8102e]/10 flex items-center justify-center">
+                        <CheckCircleOutlined className="text-[#c8102e] text-sm" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium text-gray-800">
+                          {benefit?.name || benefitId}
+                        </p>
+                        <p className="text-sm text-gray-500">{benefit?.description || ""}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
         </div>
 
