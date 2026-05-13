@@ -1239,13 +1239,60 @@ export default function ConfirmationForm({
 
       {/* Dependent Details Modal */}
       <Modal
-        title={editingDependentIndex !== null ? `Add Details for ${dependents[editingDependentIndex]?.givenName}` : "Add Dependent Details"}
+        title={null}
         open={dependentModalOpen}
         onCancel={() => setDependentModalOpen(false)}
         footer={null}
-        width={600}
+        width={700}
       >
-        <Form form={dependentForm} layout="vertical" className="pt-4">
+        {/* Modal Header */}
+        <div className="flex items-start gap-4 mb-6">
+          <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center">
+            <TeamOutlined className="text-[#c8102e] text-xl" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">បន្ថែមព័ត៌មានលម្អិត</p>
+            <h2 className="text-xl font-semibold text-gray-900">
+              {editingDependentIndex !== null 
+                ? `Details for ${dependents[editingDependentIndex]?.title} ${dependents[editingDependentIndex]?.familyName} ${dependents[editingDependentIndex]?.givenName}` 
+                : "Add Dependent Details"}
+            </h2>
+          </div>
+        </div>
+
+        <Form form={dependentForm} layout="vertical">
+          {/* Pre-filled details from DependentsForm (Read-only display) */}
+          {editingDependentIndex !== null && (
+            <div className="bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200">
+              <p className="text-sm font-medium text-gray-700 mb-3">Information from Previous Step</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div>
+                  <p className="text-gray-500">Relationship</p>
+                  <p className="font-medium text-[#c8102e]">{dependents[editingDependentIndex]?.relationship}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500">Full Name</p>
+                  <p className="font-medium">{dependents[editingDependentIndex]?.title} {dependents[editingDependentIndex]?.familyName} {dependents[editingDependentIndex]?.givenName}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500">Date of Birth</p>
+                  <p className="font-medium">{dependents[editingDependentIndex]?.dateOfBirth?.format("DD/MMM/YYYY") || "N/A"}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500">Gender</p>
+                  <p className="font-medium">{dependents[editingDependentIndex]?.gender}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500">Age at Next Birthday</p>
+                  <p className="font-medium">{dependents[editingDependentIndex]?.ageAtNextBirthday} years</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Additional Details Section */}
+          <p className="text-sm font-medium text-gray-700 mb-4">Additional Information Required</p>
+          
           <div className="grid grid-cols-2 gap-4">
             <Form.Item
               name="height"
