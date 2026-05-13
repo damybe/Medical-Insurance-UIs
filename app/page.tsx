@@ -26,7 +26,7 @@ export default function QuotePage() {
   const [policyholderData, setPolicyholderData] = useState<PolicyholderData | null>(null);
   const [dependents, setDependents] = useState<Dependent[]>([]);
   const [planData, setPlanData] = useState<PlanData | null>(null);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [activeMenu, setActiveMenu] = useState("create-quotation");
 
   const handlePolicyholderContinue = (values: PolicyholderData) => {
