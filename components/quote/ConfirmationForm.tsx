@@ -6,7 +6,6 @@ import {
   Input,
   Select,
   DatePicker,
-  Radio,
   Checkbox,
   Upload,
   Collapse,
@@ -70,6 +69,159 @@ const countryOptions = [
   { value: "India", label: "India" },
 ];
 
+// Cambodia Address Data - Hierarchical structure
+const cambodiaAddressData: Record<string, Record<string, Record<string, string[]>>> = {
+  "Phnom Penh": {
+    "Chamkarmon": {
+      "Tonle Bassac": ["Phum 1", "Phum 2", "Phum 3"],
+      "Boeung Keng Kang I": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+      "Boeung Keng Kang II": ["Phum 1", "Phum 2"],
+      "Boeung Keng Kang III": ["Phum 1", "Phum 2", "Phum 3"],
+      "Olympic": ["Phum 1", "Phum 2", "Phum 3"],
+      "Toul Svay Prey I": ["Phum 1", "Phum 2", "Phum 3"],
+      "Toul Svay Prey II": ["Phum 1", "Phum 2"],
+    },
+    "Daun Penh": {
+      "Phsar Thmei I": ["Phum 1", "Phum 2", "Phum 3"],
+      "Phsar Thmei II": ["Phum 1", "Phum 2"],
+      "Phsar Thmei III": ["Phum 1", "Phum 2", "Phum 3"],
+      "Wat Phnom": ["Phum 1", "Phum 2"],
+      "Srah Chak": ["Phum 1", "Phum 2", "Phum 3"],
+      "Phsar Kandal I": ["Phum 1", "Phum 2"],
+      "Phsar Kandal II": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+    "7 Makara": {
+      "Veal Vong": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+      "Mittapheap": ["Phum 1", "Phum 2", "Phum 3"],
+      "Monourom": ["Phum 1", "Phum 2"],
+      "Ou Ruessei I": ["Phum 1", "Phum 2", "Phum 3"],
+      "Ou Ruessei II": ["Phum 1", "Phum 2"],
+      "Ou Ruessei III": ["Phum 1", "Phum 2", "Phum 3"],
+      "Ou Ruessei IV": ["Phum 1", "Phum 2"],
+    },
+    "Toul Kork": {
+      "Boeung Kak I": ["Phum 1", "Phum 2", "Phum 3"],
+      "Boeung Kak II": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+      "Phsar Depou I": ["Phum 1", "Phum 2"],
+      "Phsar Depou II": ["Phum 1", "Phum 2", "Phum 3"],
+      "Phsar Depou III": ["Phum 1", "Phum 2"],
+      "Toul Sangke": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+    "Mean Chey": {
+      "Chak Angre Krom": ["Phum 1", "Phum 2", "Phum 3"],
+      "Chak Angre Leu": ["Phum 1", "Phum 2"],
+      "Stueng Meanchey": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+      "Boeung Tompun": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+    "Sen Sok": {
+      "Khmuonh": ["Phum 1", "Phum 2", "Phum 3"],
+      "Phnom Penh Thmey": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+      "Teuk Thla": ["Phum 1", "Phum 2", "Phum 3"],
+      "Krang Thnong": ["Phum 1", "Phum 2"],
+    },
+    "Russey Keo": {
+      "Tuol Sangke": ["Phum 1", "Phum 2", "Phum 3"],
+      "Kilomet Lekh Prammuoy": ["Phum 1", "Phum 2"],
+      "Russey Keo": ["Phum 1", "Phum 2", "Phum 3"],
+      "Svay Pak": ["Phum 1", "Phum 2"],
+    },
+  },
+  "Siem Reap": {
+    "Siem Reap": {
+      "Svay Dangkum": ["Phum Wat Bo", "Phum Taphul", "Phum Sala Kamraeuk"],
+      "Sala Kamraeuk": ["Phum 1", "Phum 2", "Phum 3"],
+      "Sla Kram": ["Phum 1", "Phum 2"],
+      "Kouk Chak": ["Phum 1", "Phum 2", "Phum 3"],
+      "Chreav": ["Phum 1", "Phum 2"],
+    },
+    "Angkor Chum": {
+      "Char Chhuk": ["Phum 1", "Phum 2"],
+      "Doun Peng": ["Phum 1", "Phum 2", "Phum 3"],
+      "Kouk Doung": ["Phum 1", "Phum 2"],
+    },
+    "Puok": {
+      "Lvea": ["Phum 1", "Phum 2", "Phum 3"],
+      "Puok": ["Phum 1", "Phum 2"],
+      "Prey Chruk": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+  },
+  "Battambang": {
+    "Battambang": {
+      "Svay Por": ["Phum 1", "Phum 2", "Phum 3"],
+      "Preaek Preah Sdach": ["Phum 1", "Phum 2"],
+      "Kampong Krabei": ["Phum 1", "Phum 2", "Phum 3"],
+      "Ou Mal": ["Phum 1", "Phum 2"],
+      "Rotanak": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+    },
+    "Sangkae": {
+      "Anlong Vil": ["Phum 1", "Phum 2"],
+      "Norea": ["Phum 1", "Phum 2", "Phum 3"],
+      "Reang Kesei": ["Phum 1", "Phum 2"],
+    },
+    "Banan": {
+      "Bay Damram": ["Phum 1", "Phum 2"],
+      "Chheu Teal": ["Phum 1", "Phum 2", "Phum 3"],
+      "Kantueu Muoy": ["Phum 1", "Phum 2"],
+    },
+  },
+  "Kandal": {
+    "Ta Khmau": {
+      "Ta Khmau": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+      "Preaek Russei": ["Phum 1", "Phum 2"],
+      "Kampong Samnanh": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+    "Kien Svay": {
+      "Koki": ["Phum 1", "Phum 2", "Phum 3"],
+      "Preaek Aeng": ["Phum 1", "Phum 2"],
+      "Preaek Kdam": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+    "Ang Snuol": {
+      "Chheu Teal": ["Phum 1", "Phum 2"],
+      "Preaek Thmei": ["Phum 1", "Phum 2", "Phum 3"],
+      "Roka Khpos": ["Phum 1", "Phum 2"],
+    },
+  },
+  "Kampong Cham": {
+    "Kampong Cham": {
+      "Veal Vong": ["Phum 1", "Phum 2", "Phum 3"],
+      "Boeng Kok": ["Phum 1", "Phum 2"],
+      "Kampong Cham": ["Phum 1", "Phum 2", "Phum 3", "Phum 4"],
+    },
+    "Prey Chhor": {
+      "Chrey Vien": ["Phum 1", "Phum 2"],
+      "Kor": ["Phum 1", "Phum 2", "Phum 3"],
+      "Prey Khla": ["Phum 1", "Phum 2"],
+    },
+    "Chamkar Leu": {
+      "Chamkar Andoung": ["Phum 1", "Phum 2", "Phum 3"],
+      "Lvea Leu": ["Phum 1", "Phum 2"],
+      "Soutip": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+  },
+  "Sihanoukville": {
+    "Mittakpheap": {
+      "Sangkat 1": ["Village 1", "Village 2", "Village 3"],
+      "Sangkat 2": ["Village 1", "Village 2"],
+      "Sangkat 3": ["Village 1", "Village 2", "Village 3"],
+      "Sangkat 4": ["Village 1", "Village 2"],
+    },
+    "Prey Nob": {
+      "Prey Nob": ["Phum 1", "Phum 2", "Phum 3"],
+      "Ou Oknha Heng": ["Phum 1", "Phum 2"],
+      "Ream": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+    "Stung Hav": {
+      "Stung Hav": ["Phum 1", "Phum 2"],
+      "Ou Treh": ["Phum 1", "Phum 2", "Phum 3"],
+    },
+  },
+};
+
+const cityOptions = Object.keys(cambodiaAddressData).map(city => ({
+  value: city,
+  label: city,
+}));
+
 const nationalityOptions = [
   { value: "Cambodian", label: "Cambodian" },
   { value: "Thai", label: "Thai" },
@@ -118,42 +270,62 @@ const relationshipOptions = [
 const medicalQuestions = [
   {
     id: "hospital_admission",
+    category: "General Health",
+    shortTitle: "Hospital / Surgery",
     question: "Been admitted to a hospital / other medical facility or had surgery",
   },
   {
     id: "disability_costs",
+    category: "General Health",
+    shortTitle: "Disability / Medical Costs",
     question: "Been disabled and / or incurred medical costs exceeding USD$6,500",
   },
   {
     id: "checkup_abnormality",
+    category: "General Health",
+    shortTitle: "Checkup Abnormality",
     question: "Been told that there was any abnormity during checkup",
   },
   {
     id: "respiratory",
+    category: "Respiratory System",
+    shortTitle: "Respiratory Issues",
     question: "Had any health problems related to: Chronic cough, expectoration, hemoptysis, asthma, difficulty breathing, bronchiectasis, pneumothorax, emphysema, tuberculosis, pleurisy, chronic bronchitis, or other diseases of the respiratory system?",
   },
   {
     id: "urinary",
+    category: "Urinary System",
+    shortTitle: "Urinary Problems",
     question: "Had any health problems related to: Back pain, frequent urination, urgency of urination, pain in urination, difficulty urinating, blood or protein in the urine, abnormal amount of urine, nocturia, swelling in the face, kidney and urinary tract stone, nephritis, nephropathy, renal cyst, hydronephrosis, or other urinary system problems?",
   },
   {
     id: "digestive",
+    category: "Digestive System",
+    shortTitle: "Digestive Problems",
     question: "Had any health problems related to: Belch, nausea, vomiting, abdominal distention, abdominal pain, constipation, diarrhea, hematemesis, melena, hematochezia, jaundice, difficulty swallowing, ulcer, colitis, stomach problems, hernia, rectal problems, HBV Carrier, liver disorders, gall bladder disorder, pancreas problems or other digestive system problems?",
   },
   {
     id: "pregnant",
+    category: "Other",
+    shortTitle: "Pregnancy",
     question: "Are you currently pregnant? (Not applicable for members below 18 years old)",
   },
   {
     id: "smoking",
+    category: "Lifestyle",
+    shortTitle: "Smoking / Tobacco",
     question: "Smoke more than 15 cigarettes per day or use tobacco in any form?",
   },
   {
     id: "weight_change",
+    category: "Lifestyle",
+    shortTitle: "Weight Change",
     question: "Within the past 5 years, gained or lost more than 12kg (25lbs) in 12 months?",
   },
   {
     id: "other_condition",
+    category: "Other",
+    shortTitle: "Other Conditions",
     question: "Any other medical condition that has not been disclosed above?",
   },
 ];
@@ -191,14 +363,110 @@ export default function ConfirmationForm({
   const [dependentModalOpen, setDependentModalOpen] = useState(false);
   const [dependentForm] = Form.useForm();
 
+  // Residential address cascading state
+  const [residentialCity, setResidentialCity] = useState<string | null>(null);
+  const [residentialDistrict, setResidentialDistrict] = useState<string | null>(null);
+  const [residentialCommune, setResidentialCommune] = useState<string | null>(null);
+
+  // Correspondence address cascading state
+  const [correspondenceCity, setCorrespondenceCity] = useState<string | null>(null);
+  const [correspondenceDistrict, setCorrespondenceDistrict] = useState<string | null>(null);
+  const [correspondenceCommune, setCorrespondenceCommune] = useState<string | null>(null);
+
+  // Get district options based on selected city
+  const getDistrictOptions = (city: string | null) => {
+    if (!city || !cambodiaAddressData[city]) return [];
+    return Object.keys(cambodiaAddressData[city]).map(district => ({
+      value: district,
+      label: district,
+    }));
+  };
+
+  // Get commune options based on selected city and district
+  const getCommuneOptions = (city: string | null, district: string | null) => {
+    if (!city || !district || !cambodiaAddressData[city]?.[district]) return [];
+    return Object.keys(cambodiaAddressData[city][district]).map(commune => ({
+      value: commune,
+      label: commune,
+    }));
+  };
+
+  // Get village options based on selected city, district, and commune
+  const getVillageOptions = (city: string | null, district: string | null, commune: string | null) => {
+    if (!city || !district || !commune || !cambodiaAddressData[city]?.[district]?.[commune]) return [];
+    return cambodiaAddressData[city][district][commune].map(village => ({
+      value: village,
+      label: village,
+    }));
+  };
+
+  // Handle city change - reset dependent fields
+  const handleCityChange = (value: string, prefix: "residential" | "correspondence") => {
+    if (prefix === "residential") {
+      setResidentialCity(value);
+      setResidentialDistrict(null);
+      setResidentialCommune(null);
+      form.setFieldsValue({
+        residentialDistrict: undefined,
+        residentialCommune: undefined,
+        residentialVillage: undefined,
+      });
+    } else {
+      setCorrespondenceCity(value);
+      setCorrespondenceDistrict(null);
+      setCorrespondenceCommune(null);
+      form.setFieldsValue({
+        correspondenceDistrict: undefined,
+        correspondenceCommune: undefined,
+        correspondenceVillage: undefined,
+      });
+    }
+    handleAddressFieldChange(prefix);
+  };
+
+  // Handle district change - reset dependent fields
+  const handleDistrictChange = (value: string, prefix: "residential" | "correspondence") => {
+    if (prefix === "residential") {
+      setResidentialDistrict(value);
+      setResidentialCommune(null);
+      form.setFieldsValue({
+        residentialCommune: undefined,
+        residentialVillage: undefined,
+      });
+    } else {
+      setCorrespondenceDistrict(value);
+      setCorrespondenceCommune(null);
+      form.setFieldsValue({
+        correspondenceCommune: undefined,
+        correspondenceVillage: undefined,
+      });
+    }
+    handleAddressFieldChange(prefix);
+  };
+
+  // Handle commune change - reset village
+  const handleCommuneChange = (value: string, prefix: "residential" | "correspondence") => {
+    if (prefix === "residential") {
+      setResidentialCommune(value);
+      form.setFieldsValue({ residentialVillage: undefined });
+    } else {
+      setCorrespondenceCommune(value);
+      form.setFieldsValue({ correspondenceVillage: undefined });
+    }
+    handleAddressFieldChange(prefix);
+  };
+
   // Auto-generate full address
   const generateFullAddress = (prefix: string) => {
     const values = form.getFieldsValue();
+    const streetNo = values[`${prefix}StreetNo`];
+    const District = values[`${prefix}District`];
     const parts = [
       values[`${prefix}HouseNo`],
-      values[`${prefix}StreetNo`],
+      streetNo ? `ST. ${streetNo}` : null,
       values[`${prefix}Village`],
       values[`${prefix}Commune`],
+      District ? `${District} District` : null,
       values[`${prefix}District`],
       values[`${prefix}City`],
       values[`${prefix}Country`],
@@ -261,6 +529,14 @@ export default function ConfirmationForm({
   const handleEditDependent = (index: number) => {
     const dep = dependents[index];
     dependentForm.setFieldsValue({
+      // Pre-fill from DependentsForm data
+      relationship: dep.relationship,
+      title: dep.title,
+      familyName: dep.familyName,
+      givenName: dep.givenName,
+      dateOfBirth: dep.dateOfBirth,
+      gender: dep.gender,
+      // Additional fields
       height: "",
       weight: "",
       cardType: "NID",
@@ -343,33 +619,146 @@ export default function ConfirmationForm({
               icon={UserOutlined}
               titleKh="ព័ត៌មានអំពីម្ចាស់បណ្ណា"
               titleEn="Details of Policy Holder"
-              description="Physical measurements and identification details"
+              description="Review and complete your personal information"
             />
+
+            {/* Pre-filled details from PolicyholderForm */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+              <Form.Item
+                name="title"
+                label={<FormLabel khmer="គោត្ត" english="Title" />}
+              >
+                <Select
+                  size="large"
+                  placeholder="Select title"
+                  options={[
+                    { value: "Mr.", label: "Mr." },
+                    { value: "Mrs.", label: "Mrs." },
+                    { value: "Ms.", label: "Ms." },
+                    { value: "Dr.", label: "Dr." },
+                  ]}
+                />
+              </Form.Item>
+
+              <Form.Item
+                name="familyName"
+                label={<FormLabel khmer="នាមត្រកូល" english="Family Name" required />}
+                rules={[{ required: true, message: "Please enter family name" }]}
+              >
+                <Input size="large" placeholder="Enter family name" />
+              </Form.Item>
+
+              <Form.Item
+                name="givenName"
+                label={<FormLabel khmer="នាមខ្លួន" english="Given Name" required />}
+                rules={[{ required: true, message: "Please enter given name" }]}
+              >
+                <Input size="large" placeholder="Enter given name" />
+              </Form.Item>
+
+              <Form.Item
+                name="gender"
+                label={<FormLabel khmer="ភេទ" english="Gender" required />}
+                rules={[{ required: true, message: "Please select gender" }]}
+              >
+                <Select
+                  size="large"
+                  placeholder="Select gender"
+                  options={[
+                    { value: "Male", label: "Male" },
+                    { value: "Female", label: "Female" },
+                    { value: "Other", label: "Other" },
+                    { value: "Prefer not to say", label: "Prefer not to say" },
+                  ]}
+                />
+              </Form.Item>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <Form.Item
-                name="height"
-                label={<FormLabel khmer="កម្ពស់" english="Height (cm)" required />}
-                rules={[{ required: true, message: "Please enter height" }]}
+                name="dateOfBirth"
+                label={<FormLabel khmer="ថ្ងៃខែឆ្នាំកំណើត" english="Date of Birth" required />}
+                rules={[{ required: true, message: "Please select date of birth" }]}
               >
-                <Input size="large" placeholder="e.g., 170" suffix="cm" />
+                <DatePicker
+                  size="large"
+                  format="DD/MMM/YYYY"
+                  className="w-full"
+                  placeholder="dd/MMM/yyyy"
+                />
               </Form.Item>
 
-              <Form.Item
-                name="weight"
-                label={<FormLabel khmer="ទម្ងន់" english="Weight (kg)" required />}
-                rules={[{ required: true, message: "Please enter weight" }]}
-              >
-                <Input size="large" placeholder="e.g., 65" suffix="kg" />
-              </Form.Item>
+              <div>
+                <div className="mb-2">
+                  <span className="block text-xs text-gray-500">លេខទូរស័ព្ទ</span>
+                  <span className="text-gray-700">Contact Number</span>
+                  <span className="text-[#c8102e] ml-1">*</span>
+                </div>
+                <div className="flex gap-2">
+                  <Form.Item name="countryCode" className="mb-0" style={{ width: '120px' }}>
+                    <Select
+                      size="large"
+                      options={[
+                        { value: "+855", label: "+855" },
+                        { value: "+1", label: "+1" },
+                        { value: "+44", label: "+44" },
+                        { value: "+61", label: "+61" },
+                        { value: "+65", label: "+65" },
+                        { value: "+66", label: "+66" },
+                        { value: "+84", label: "+84" },
+                      ]}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="phoneNumber"
+                    className="mb-0 flex-1"
+                    rules={[{ required: true, message: "Please enter phone number" }]}
+                  >
+                    <Input size="large" placeholder="Enter phone number" />
+                  </Form.Item>
+                </div>
+              </div>
 
               <Form.Item
-                name="maritalStatus"
-                label={<FormLabel khmer="ស្ថានភាពអាពាហ៍ពិពាហ៍" english="Marital Status" required />}
-                rules={[{ required: true, message: "Please select marital status" }]}
+                name="email"
+                label={<FormLabel khmer="អ៊ីមែល" english="Email" required />}
+                rules={[
+                  { required: true, message: "Please enter email" },
+                  { type: "email", message: "Please enter a valid email" }
+                ]}
               >
-                <Select size="large" placeholder="Select" options={maritalStatusOptions} />
+                <Input size="large" placeholder="Enter email address" />
               </Form.Item>
+            </div>
+
+            {/* Additional details */}
+            <div className="border-t border-gray-200 pt-6 mt-6">
+              <p className="text-sm font-medium text-gray-700 mb-4">Additional Information</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <Form.Item
+                  name="height"
+                  label={<FormLabel khmer="កម្ពស់" english="Height (cm)" required />}
+                  rules={[{ required: true, message: "Please enter height" }]}
+                >
+                  <Input size="large" placeholder="e.g., 170" suffix="cm" />
+                </Form.Item>
+
+                <Form.Item
+                  name="weight"
+                  label={<FormLabel khmer="ទម្ងន់" english="Weight (kg)" required />}
+                  rules={[{ required: true, message: "Please enter weight" }]}
+                >
+                  <Input size="large" placeholder="e.g., 65" suffix="kg" />
+                </Form.Item>
+
+                <Form.Item
+                  name="maritalStatus"
+                  label={<FormLabel khmer="ស្ថានភាពអាពាហ៍ពិពាហ៍" english="Marital Status" required />}
+                  rules={[{ required: true, message: "Please select marital status" }]}
+                >
+                  <Select size="large" placeholder="Select" options={maritalStatusOptions} />
+                </Form.Item>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -483,10 +872,16 @@ export default function ConfirmationForm({
 
               <Form.Item
                 name="residentialCity"
-                label={<FormLabel khmer="ក្រុង/ខេត្ត" english="City" required />}
-                rules={[{ required: true, message: "Please enter city" }]}
+                label={<FormLabel khmer="ក្រុង/ខេត្ត" english="City/Province" required />}
+                rules={[{ required: true, message: "Please select city" }]}
               >
-                <Input size="large" placeholder="Enter city" onChange={() => handleAddressFieldChange("residential")} />
+                <Select 
+                  size="large" 
+                  placeholder="Select city/province" 
+                  options={cityOptions}
+                  showSearch
+                  onChange={(value) => handleCityChange(value, "residential")}
+                />
               </Form.Item>
             </div>
 
@@ -495,21 +890,42 @@ export default function ConfirmationForm({
                 name="residentialDistrict"
                 label={<FormLabel khmer="ស្រុក/ខណ្ឌ" english="District" />}
               >
-                <Input size="large" placeholder="Enter district" onChange={() => handleAddressFieldChange("residential")} />
+                <Select 
+                  size="large" 
+                  placeholder="Select district" 
+                  options={getDistrictOptions(residentialCity)}
+                  showSearch
+                  disabled={!residentialCity}
+                  onChange={(value) => handleDistrictChange(value, "residential")}
+                />
               </Form.Item>
 
               <Form.Item
                 name="residentialCommune"
                 label={<FormLabel khmer="ឃុំ/សង្កាត់" english="Commune" />}
               >
-                <Input size="large" placeholder="Enter commune" onChange={() => handleAddressFieldChange("residential")} />
+                <Select 
+                  size="large" 
+                  placeholder="Select commune" 
+                  options={getCommuneOptions(residentialCity, residentialDistrict)}
+                  showSearch
+                  disabled={!residentialDistrict}
+                  onChange={(value) => handleCommuneChange(value, "residential")}
+                />
               </Form.Item>
 
               <Form.Item
                 name="residentialVillage"
                 label={<FormLabel khmer="ភូមិ" english="Village" />}
               >
-                <Input size="large" placeholder="Enter village" onChange={() => handleAddressFieldChange("residential")} />
+                <Select 
+                  size="large" 
+                  placeholder="Select village" 
+                  options={getVillageOptions(residentialCity, residentialDistrict, residentialCommune)}
+                  showSearch
+                  disabled={!residentialCommune}
+                  onChange={() => handleAddressFieldChange("residential")}
+                />
               </Form.Item>
 
               <Form.Item
@@ -575,10 +991,16 @@ export default function ConfirmationForm({
 
                   <Form.Item
                     name="correspondenceCity"
-                    label={<FormLabel khmer="ក្រុង/ខេត្ត" english="City" required />}
-                    rules={[{ required: !sameAsResidential, message: "Please enter city" }]}
+                    label={<FormLabel khmer="ក្រុង/ខេត្ត" english="City/Province" required />}
+                    rules={[{ required: !sameAsResidential, message: "Please select city" }]}
                   >
-                    <Input size="large" placeholder="Enter city" onChange={() => handleAddressFieldChange("correspondence")} />
+                    <Select 
+                      size="large" 
+                      placeholder="Select city/province" 
+                      options={cityOptions}
+                      showSearch
+                      onChange={(value) => handleCityChange(value, "correspondence")}
+                    />
                   </Form.Item>
                 </div>
 
@@ -587,21 +1009,42 @@ export default function ConfirmationForm({
                     name="correspondenceDistrict"
                     label={<FormLabel khmer="ស្រុក/ខណ្ឌ" english="District" />}
                   >
-                    <Input size="large" placeholder="Enter district" onChange={() => handleAddressFieldChange("correspondence")} />
+                    <Select 
+                      size="large" 
+                      placeholder="Select district" 
+                      options={getDistrictOptions(correspondenceCity)}
+                      showSearch
+                      disabled={!correspondenceCity}
+                      onChange={(value) => handleDistrictChange(value, "correspondence")}
+                    />
                   </Form.Item>
 
                   <Form.Item
                     name="correspondenceCommune"
                     label={<FormLabel khmer="ឃុំ/សង្កាត់" english="Commune" />}
                   >
-                    <Input size="large" placeholder="Enter commune" onChange={() => handleAddressFieldChange("correspondence")} />
+                    <Select 
+                      size="large" 
+                      placeholder="Select commune" 
+                      options={getCommuneOptions(correspondenceCity, correspondenceDistrict)}
+                      showSearch
+                      disabled={!correspondenceDistrict}
+                      onChange={(value) => handleCommuneChange(value, "correspondence")}
+                    />
                   </Form.Item>
 
                   <Form.Item
                     name="correspondenceVillage"
                     label={<FormLabel khmer="ភូមិ" english="Village" />}
                   >
-                    <Input size="large" placeholder="Enter village" onChange={() => handleAddressFieldChange("correspondence")} />
+                    <Select 
+                      size="large" 
+                      placeholder="Select village" 
+                      options={getVillageOptions(correspondenceCity, correspondenceDistrict, correspondenceCommune)}
+                      showSearch
+                      disabled={!correspondenceCommune}
+                      onChange={() => handleAddressFieldChange("correspondence")}
+                    />
                   </Form.Item>
 
                   <Form.Item
@@ -675,25 +1118,39 @@ export default function ConfirmationForm({
                 icon={TeamOutlined}
                 titleKh="សមាជិកគ្រួសារ"
                 titleEn="Dependants"
-                description="Additional details for each dependent"
+                description="Review and add additional details for each dependent"
               />
 
               <div className="space-y-4">
                 {dependents.map((dep, index) => (
-                  <div key={dep.id} className="border border-gray-200 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-[#c8102e] text-white flex items-center justify-center font-semibold">
+                  <div key={dep.id} className="border border-gray-200 rounded-lg p-5 hover:border-gray-300 transition-colors">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 rounded-full bg-[#c8102e] text-white flex items-center justify-center font-semibold text-lg">
                           {dep.familyName.charAt(0)}{dep.givenName.charAt(0)}
                         </div>
-                        <div>
-                          <p className="font-semibold text-gray-900">{dep.title} {dep.familyName} {dep.givenName}</p>
-                          <p className="text-sm text-gray-500">{dep.relationship} · {dep.gender}</p>
+                        <div className="flex-1">
+                          <p className="font-semibold text-gray-900 text-lg">
+                            {dep.title} {dep.familyName} {dep.givenName}
+                          </p>
+                          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-gray-500">
+                            <span className="inline-flex items-center gap-1">
+                              <span className="font-medium text-[#c8102e]">{dep.relationship}</span>
+                            </span>
+                            <span>|</span>
+                            <span>{dep.gender}</span>
+                            <span>|</span>
+                            <span>DOB: {dep.dateOfBirth?.format("DD/MMM/YYYY") || "N/A"}</span>
+                            <span>|</span>
+                            <span>Age: {dep.ageAtNextBirthday} years</span>
+                          </div>
                         </div>
                       </div>
                       <Button
+                        type="primary"
                         icon={<EditOutlined />}
                         onClick={() => handleEditDependent(index)}
+                        className="bg-[#0a3d62] hover:bg-[#083352] border-0"
                       >
                         Add Details
                       </Button>
@@ -714,14 +1171,33 @@ export default function ConfirmationForm({
             />
 
             <div className="mb-6">
-              <p className="text-gray-700 mb-3">Are you presently insured with another insurance company?</p>
-              <Radio.Group
-                value={hasExistingInsurance}
-                onChange={(e) => setHasExistingInsurance(e.target.value)}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <p className="text-gray-700">Are you presently insured with another insurance company?</p>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setHasExistingInsurance(false)}
+                    className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+                      hasExistingInsurance === false
+                        ? "bg-[#0a3d62] text-white"
+                        : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                    }`}
+                  >
+                    No
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setHasExistingInsurance(true)}
+                    className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+                      hasExistingInsurance === true
+                        ? "bg-[#c8102e] text-white"
+                        : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                    }`}
+                  >
+                    Yes
+                  </button>
+                </div>
+              </div>
             </div>
 
             {hasExistingInsurance && (
@@ -763,14 +1239,33 @@ export default function ConfirmationForm({
             />
 
             <div className="mb-6">
-              <p className="text-gray-700 mb-3">Would you like your policy to commence immediately upon acceptance?</p>
-              <Radio.Group
-                value={immediateCommencement}
-                onChange={(e) => setImmediateCommencement(e.target.value)}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <p className="text-gray-700">Would you like your policy to commence immediately upon acceptance?</p>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setImmediateCommencement(false)}
+                    className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+                      immediateCommencement === false
+                        ? "bg-[#0a3d62] text-white"
+                        : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                    }`}
+                  >
+                    No
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setImmediateCommencement(true)}
+                    className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+                      immediateCommencement === true
+                        ? "bg-[#c8102e] text-white"
+                        : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                    }`}
+                  >
+                    Yes
+                  </button>
+                </div>
+              </div>
             </div>
 
             {immediateCommencement === false && (
@@ -846,16 +1341,35 @@ export default function ConfirmationForm({
 
             <div className="space-y-6">
               <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-gray-700 mb-3">
-                  Does your occupation involve any of the following: Working in high-risk environment (e.g. mine, oil rigs, construction sites)? Operating or being exposed to heavy industrial equipment? Handling toxic chemicals or biological hazards?
-                </p>
-                <Radio.Group
-                  value={occupationRisk}
-                  onChange={(e) => setOccupationRisk(e.target.value)}
-                >
-                  <Radio value={true}>Yes</Radio>
-                  <Radio value={false}>No</Radio>
-                </Radio.Group>
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <p className="text-gray-700 flex-1">
+                    Does your occupation involve any of the following: Working in high-risk environment (e.g. mine, oil rigs, construction sites)? Operating or being exposed to heavy industrial equipment? Handling toxic chemicals or biological hazards?
+                  </p>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setOccupationRisk(false)}
+                      className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+                        occupationRisk === false
+                          ? "bg-[#0a3d62] text-white"
+                          : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                      }`}
+                    >
+                      No
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setOccupationRisk(true)}
+                      className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+                        occupationRisk === true
+                          ? "bg-[#c8102e] text-white"
+                          : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                      }`}
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
 
                 {occupationRisk === false && (
                   <div className="mt-4">
@@ -870,16 +1384,35 @@ export default function ConfirmationForm({
               </div>
 
               <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-gray-700 mb-3">
-                  Do you engage in any high-risk or hazardous recreational activities or hobbies? (e.g., Skydiving, Paragliding, Scuba diving, Rock climbing, Motor racing, etc.)
-                </p>
-                <Radio.Group
-                  value={hazardousActivities}
-                  onChange={(e) => setHazardousActivities(e.target.value)}
-                >
-                  <Radio value={true}>Yes</Radio>
-                  <Radio value={false}>No</Radio>
-                </Radio.Group>
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <p className="text-gray-700 flex-1">
+                    Do you engage in any high-risk or hazardous recreational activities or hobbies? (e.g., Skydiving, Paragliding, Scuba diving, Rock climbing, Motor racing, etc.)
+                  </p>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setHazardousActivities(false)}
+                      className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+                        hazardousActivities === false
+                          ? "bg-[#0a3d62] text-white"
+                          : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                      }`}
+                    >
+                      No
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setHazardousActivities(true)}
+                      className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+                        hazardousActivities === true
+                          ? "bg-[#c8102e] text-white"
+                          : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                      }`}
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
 
                 {hazardousActivities === true && (
                   <div className="mt-4">
@@ -906,29 +1439,167 @@ export default function ConfirmationForm({
               icon={QuestionCircleOutlined}
               titleKh="កម្រងសំណួរវេជ្ជសាស្រ្ត"
               titleEn="Medical Questionnaire - Policy Holder"
-              description="Health-related questions for the policyholder"
+              description="Please answer the following health-related questions"
             />
 
-            <div className="space-y-4">
-              {medicalQuestions.map((q) => (
-                <div key={q.id} className="p-4 bg-gray-50 rounded-lg">
-                  <p className="text-gray-700 mb-3 text-sm">{q.question}</p>
-                  <div className="flex items-center gap-4">
-                    <Radio.Group
-                      value={medicalAnswers[q.id]?.answer}
-                      onChange={(e) => handleMedicalAnswer(q.id, e.target.value)}
-                    >
-                      <Radio value={true}>Yes</Radio>
-                      <Radio value={false}>No</Radio>
-                    </Radio.Group>
-                    {medicalAnswers[q.id]?.answer === true && medicalAnswers[q.id]?.details && (
-                      <span className="text-green-600 text-sm flex items-center gap-1">
-                        <CheckCircleOutlined /> Details provided
-                      </span>
-                    )}
+            {/* Progress Indicator */}
+            <div className="mb-6 p-4 bg-gradient-to-r from-[#0a3d62]/5 to-[#0a3d62]/10 rounded-lg">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-[#0a3d62]">
+                  Progress: {Object.keys(medicalAnswers).filter(k => medicalAnswers[k]?.answer !== undefined).length} of {medicalQuestions.length} answered
+                </span>
+                <span className="text-sm text-gray-500">
+                  {Math.round((Object.keys(medicalAnswers).filter(k => medicalAnswers[k]?.answer !== undefined).length / medicalQuestions.length) * 100)}% complete
+                </span>
+              </div>
+              <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-[#0a3d62] to-[#c8102e] transition-all duration-300 rounded-full"
+                  style={{ width: `${(Object.keys(medicalAnswers).filter(k => medicalAnswers[k]?.answer !== undefined).length / medicalQuestions.length) * 100}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Quick Answer All No Button */}
+            <div className="mb-6 flex items-center justify-between p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="flex items-center gap-2">
+                <ExclamationCircleOutlined className="text-blue-500" />
+                <span className="text-sm text-blue-700">If all answers are &quot;No&quot;, you can quickly mark all at once</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  medicalQuestions.forEach(q => {
+                    if (medicalAnswers[q.id]?.answer === undefined) {
+                      handleMedicalAnswer(q.id, false);
+                    }
+                  });
+                }}
+                className="px-4 py-1.5 bg-[#0a3d62] text-white text-sm font-medium rounded-lg hover:bg-[#083352] transition-colors"
+              >
+                Mark All as No
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {medicalQuestions.map((q, index) => {
+                const isAnswered = medicalAnswers[q.id]?.answer !== undefined;
+                const isYes = medicalAnswers[q.id]?.answer === true;
+                const isNo = medicalAnswers[q.id]?.answer === false;
+                const hasDetails = medicalAnswers[q.id]?.details;
+                
+                return (
+                  <div 
+                    key={q.id} 
+                    className={`rounded-xl border-2 transition-all duration-200 overflow-hidden ${
+                      isYes 
+                        ? "border-[#c8102e]/30 bg-red-50/50" 
+                        : isNo 
+                          ? "border-green-200 bg-green-50/30" 
+                          : "border-gray-200 bg-white hover:border-gray-300"
+                    }`}
+                  >
+                    <div className="p-4">
+                      <div className="flex items-start gap-4">
+                        {/* Question Number & Status */}
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
+                          isYes 
+                            ? "bg-[#c8102e] text-white" 
+                            : isNo 
+                              ? "bg-green-500 text-white" 
+                              : "bg-gray-200 text-gray-600"
+                        }`}>
+                          {isAnswered ? (isYes ? "!" : <CheckCircleOutlined />) : index + 1}
+                        </div>
+                        
+                        {/* Question Content */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
+                              {q.category}
+                            </span>
+                            <span className="text-sm font-semibold text-gray-800">{q.shortTitle}</span>
+                          </div>
+                          <p className="text-gray-600 text-sm leading-relaxed">{q.question}</p>
+                        </div>
+                        
+                        {/* Answer Buttons */}
+                        <div className="flex items-center gap-2 shrink-0">
+                          <button
+                            type="button"
+                            onClick={() => handleMedicalAnswer(q.id, false)}
+                            className={`px-5 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
+                              isNo
+                                ? "bg-green-500 text-white shadow-sm"
+                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                            }`}
+                          >
+                            {isNo && <CheckCircleOutlined className="text-xs" />}
+                            No
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleMedicalAnswer(q.id, true)}
+                            className={`px-5 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
+                              isYes
+                                ? "bg-[#c8102e] text-white shadow-sm"
+                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                            }`}
+                          >
+                            {isYes && <ExclamationCircleOutlined className="text-xs" />}
+                            Yes
+                          </button>
+                        </div>
+                      </div>
+                      
+                      {/* Yes - Details Section */}
+                      {isYes && (
+                        <div className="mt-4 pt-4 border-t border-[#c8102e]/20">
+                          {hasDetails ? (
+                            <div className="flex items-center justify-between bg-white p-3 rounded-lg border border-green-200">
+                              <div className="flex items-center gap-2">
+                                <CheckCircleOutlined className="text-green-500" />
+                                <span className="text-sm text-green-700 font-medium">Details have been provided</span>
+                              </div>
+                              <Button
+                                type="link"
+                                size="small"
+                                icon={<EditOutlined />}
+                                onClick={() => {
+                                  setCurrentMedicalQuestion(q.id);
+                                  setMedicalDetailsModalOpen(true);
+                                }}
+                                className="text-[#0a3d62]"
+                              >
+                                View / Edit
+                              </Button>
+                            </div>
+                          ) : (
+                            <div className="flex items-center justify-between bg-amber-50 p-3 rounded-lg border border-amber-200">
+                              <div className="flex items-center gap-2">
+                                <ExclamationCircleOutlined className="text-amber-500" />
+                                <span className="text-sm text-amber-700">Please provide details about this condition</span>
+                              </div>
+                              <Button
+                                type="primary"
+                                size="small"
+                                icon={<EditOutlined />}
+                                onClick={() => {
+                                  setCurrentMedicalQuestion(q.id);
+                                  setMedicalDetailsModalOpen(true);
+                                }}
+                                className="bg-[#c8102e] border-0"
+                              >
+                                Add Details
+                              </Button>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -939,44 +1610,187 @@ export default function ConfirmationForm({
                 icon={QuestionCircleOutlined}
                 titleKh="កម្រងសំណួរវេជ្ជសាស្រ្ត - សមាជិកគ្រួសារ"
                 titleEn="Medical Questionnaire - Dependants"
-                description="Health-related questions for each dependent"
+                description="Please answer the health-related questions for each dependent"
               />
 
-              <Collapse accordion>
-                {dependents.map((dep) => (
-                  <Panel
-                    header={
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold">{dep.title} {dep.familyName} {dep.givenName}</span>
-                        <span className="text-gray-500">({dep.relationship})</span>
-                      </div>
-                    }
-                    key={dep.id}
-                  >
-                    <div className="space-y-4">
-                      {medicalQuestions.map((q) => (
-                        <div key={q.id} className="p-4 bg-gray-50 rounded-lg">
-                          <p className="text-gray-700 mb-3 text-sm">{q.question}</p>
-                          <div className="flex items-center gap-4">
-                            <Radio.Group
-                              value={dependentMedicalAnswers[dep.id]?.[q.id]?.answer}
-                              onChange={(e) => handleMedicalAnswer(q.id, e.target.value, dep.id)}
-                            >
-                              <Radio value={true}>Yes</Radio>
-                              <Radio value={false}>No</Radio>
-                            </Radio.Group>
-                            {dependentMedicalAnswers[dep.id]?.[q.id]?.answer === true &&
-                              dependentMedicalAnswers[dep.id]?.[q.id]?.details && (
-                                <span className="text-green-600 text-sm flex items-center gap-1">
-                                  <CheckCircleOutlined /> Details provided
-                                </span>
-                              )}
+              <Collapse 
+                accordion 
+                className="bg-transparent border-0"
+                expandIconPosition="end"
+              >
+                {dependents.map((dep) => {
+                  const depAnswers = dependentMedicalAnswers[dep.id] || {};
+                  const answeredCount = Object.keys(depAnswers).filter(k => depAnswers[k]?.answer !== undefined).length;
+                  const isComplete = answeredCount === medicalQuestions.length;
+                  
+                  return (
+                    <Panel
+                      header={
+                        <div className="flex items-center justify-between w-full pr-4">
+                          <div className="flex items-center gap-3">
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold ${
+                              isComplete ? "bg-green-500" : "bg-[#c8102e]"
+                            }`}>
+                              {dep.familyName.charAt(0)}{dep.givenName.charAt(0)}
+                            </div>
+                            <div>
+                              <span className="font-semibold text-gray-800">{dep.title} {dep.familyName} {dep.givenName}</span>
+                              <span className="ml-2 text-sm px-2 py-0.5 rounded-full bg-[#c8102e]/10 text-[#c8102e]">{dep.relationship}</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {isComplete ? (
+                              <span className="text-sm px-3 py-1 rounded-full bg-green-100 text-green-700 font-medium flex items-center gap-1">
+                                <CheckCircleOutlined /> Complete
+                              </span>
+                            ) : (
+                              <span className="text-sm px-3 py-1 rounded-full bg-amber-100 text-amber-700 font-medium">
+                                {answeredCount}/{medicalQuestions.length} answered
+                              </span>
+                            )}
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  </Panel>
-                ))}
+                      }
+                      key={dep.id}
+                      className="mb-3 rounded-xl overflow-hidden border border-gray-200 bg-gray-50"
+                    >
+                      {/* Progress Bar */}
+                      <div className="mb-4 p-3 bg-white rounded-lg border border-gray-100">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-medium text-gray-600">
+                            Progress: {answeredCount} of {medicalQuestions.length}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {Math.round((answeredCount / medicalQuestions.length) * 100)}%
+                          </span>
+                        </div>
+                        <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-gradient-to-r from-[#0a3d62] to-[#c8102e] transition-all duration-300"
+                            style={{ width: `${(answeredCount / medicalQuestions.length) * 100}%` }}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Quick Mark All No */}
+                      <div className="mb-4 flex items-center justify-between p-2 bg-blue-50 rounded-lg">
+                        <span className="text-xs text-blue-700">Mark all unanswered as No</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            medicalQuestions.forEach(q => {
+                              if (depAnswers[q.id]?.answer === undefined) {
+                                handleMedicalAnswer(q.id, false, dep.id);
+                              }
+                            });
+                          }}
+                          className="px-3 py-1 bg-[#0a3d62] text-white text-xs font-medium rounded hover:bg-[#083352] transition-colors"
+                        >
+                          Mark All No
+                        </button>
+                      </div>
+
+                      <div className="space-y-2">
+                        {medicalQuestions.map((q, index) => {
+                          const isAnswered = depAnswers[q.id]?.answer !== undefined;
+                          const isYes = depAnswers[q.id]?.answer === true;
+                          const isNo = depAnswers[q.id]?.answer === false;
+                          const hasDetails = depAnswers[q.id]?.details;
+                          
+                          return (
+                            <div 
+                              key={q.id} 
+                              className={`rounded-lg border transition-all ${
+                                isYes 
+                                  ? "border-[#c8102e]/30 bg-red-50" 
+                                  : isNo 
+                                    ? "border-green-200 bg-green-50/50" 
+                                    : "border-gray-200 bg-white"
+                              }`}
+                            >
+                              <div className="p-3">
+                                <div className="flex items-start gap-3">
+                                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                                    isYes 
+                                      ? "bg-[#c8102e] text-white" 
+                                      : isNo 
+                                        ? "bg-green-500 text-white" 
+                                        : "bg-gray-200 text-gray-600"
+                                  }`}>
+                                    {isAnswered ? (isYes ? "!" : <CheckCircleOutlined />) : index + 1}
+                                  </div>
+                                  
+                                  <div className="flex-1 min-w-0">
+                                    <span className="text-xs font-medium text-gray-500">{q.shortTitle}</span>
+                                    <p className="text-gray-700 text-xs mt-0.5 leading-relaxed">{q.question}</p>
+                                  </div>
+                                  
+                                  <div className="flex items-center gap-1.5 shrink-0">
+                                    <button
+                                      type="button"
+                                      onClick={() => handleMedicalAnswer(q.id, false, dep.id)}
+                                      className={`px-3 py-1 rounded text-xs font-medium transition-all ${
+                                        isNo
+                                          ? "bg-green-500 text-white"
+                                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                      }`}
+                                    >
+                                      No
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => handleMedicalAnswer(q.id, true, dep.id)}
+                                      className={`px-3 py-1 rounded text-xs font-medium transition-all ${
+                                        isYes
+                                          ? "bg-[#c8102e] text-white"
+                                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                      }`}
+                                    >
+                                      Yes
+                                    </button>
+                                  </div>
+                                </div>
+                                
+                                {isYes && (
+                                  <div className="mt-2 pt-2 border-t border-[#c8102e]/20 ml-9">
+                                    {hasDetails ? (
+                                      <div className="flex items-center justify-between text-xs">
+                                        <span className="text-green-600 flex items-center gap-1">
+                                          <CheckCircleOutlined /> Details provided
+                                        </span>
+                                        <button
+                                          type="button"
+                                          onClick={() => {
+                                            setCurrentMedicalQuestion(`${dep.id}:${q.id}`);
+                                            setMedicalDetailsModalOpen(true);
+                                          }}
+                                          className="text-[#0a3d62] hover:underline"
+                                        >
+                                          View/Edit
+                                        </button>
+                                      </div>
+                                    ) : (
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setCurrentMedicalQuestion(`${dep.id}:${q.id}`);
+                                          setMedicalDetailsModalOpen(true);
+                                        }}
+                                        className="text-xs px-3 py-1 bg-[#c8102e] text-white rounded hover:bg-[#a00d25] transition-colors"
+                                      >
+                                        Add Details
+                                      </button>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </Panel>
+                  );
+                })}
               </Collapse>
             </div>
           )}
@@ -1077,9 +1891,12 @@ export default function ConfirmationForm({
 
       {/* Medical Details Modal */}
       <Modal
-        title="Please Provide Details"
+        title="Medical Details"
         open={medicalDetailsModalOpen}
-        onCancel={() => setMedicalDetailsModalOpen(false)}
+        onCancel={() => {
+          setMedicalDetailsModalOpen(false);
+          setCurrentMedicalQuestion(null);
+        }}
         footer={null}
         centered
       >
@@ -1091,9 +1908,20 @@ export default function ConfirmationForm({
             rows={4}
             placeholder="Enter details here..."
             id="medicalDetailsInput"
+            key={currentMedicalQuestion}
+            defaultValue={
+              currentMedicalQuestion
+                ? currentMedicalQuestion.includes(":")
+                  ? dependentMedicalAnswers[currentMedicalQuestion.split(":")[0]]?.[currentMedicalQuestion.split(":")[1]]?.details || ""
+                  : medicalAnswers[currentMedicalQuestion]?.details || ""
+                : ""
+            }
           />
           <div className="flex justify-end gap-3 mt-4">
-            <Button onClick={() => setMedicalDetailsModalOpen(false)}>
+            <Button onClick={() => {
+              setMedicalDetailsModalOpen(false);
+              setCurrentMedicalQuestion(null);
+            }}>
               Cancel
             </Button>
             <Button
@@ -1112,13 +1940,118 @@ export default function ConfirmationForm({
 
       {/* Dependent Details Modal */}
       <Modal
-        title={editingDependentIndex !== null ? `Add Details for ${dependents[editingDependentIndex]?.givenName}` : "Add Dependent Details"}
+        title={null}
         open={dependentModalOpen}
         onCancel={() => setDependentModalOpen(false)}
         footer={null}
-        width={600}
+        width={700}
       >
-        <Form form={dependentForm} layout="vertical" className="pt-4">
+        {/* Modal Header */}
+        <div className="flex items-start gap-4 mb-6">
+          <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center">
+            <TeamOutlined className="text-[#c8102e] text-xl" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">បន្ថែមព័ត៌មានលម្អិត</p>
+            <h2 className="text-xl font-semibold text-gray-900">
+              {editingDependentIndex !== null 
+                ? `Details for ${dependents[editingDependentIndex]?.title} ${dependents[editingDependentIndex]?.familyName} ${dependents[editingDependentIndex]?.givenName}` 
+                : "Add Dependent Details"}
+            </h2>
+          </div>
+        </div>
+
+        <Form form={dependentForm} layout="vertical">
+          {/* Editable details from DependentsForm */}
+          <div className="bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200">
+            <p className="text-sm font-medium text-gray-700 mb-3">Basic Information (Editable)</p>
+            <div className="grid grid-cols-2 gap-4">
+              <Form.Item
+                name="relationship"
+                label={<FormLabel khmer="ទំនាក់ទំនង" english="Relationship" required />}
+                rules={[{ required: true, message: "Please select relationship" }]}
+              >
+                <Select
+                  size="large"
+                  placeholder="Select relationship"
+                  options={[
+                    { value: "Spouse", label: "Spouse" },
+                    { value: "Child", label: "Child" },
+                    { value: "Parent", label: "Parent" },
+                    { value: "Sibling", label: "Sibling" },
+                  ]}
+                />
+              </Form.Item>
+
+              <Form.Item
+                name="title"
+                label={<FormLabel khmer="គោរព" english="Title" />}
+              >
+                <Select
+                  size="large"
+                  placeholder="Select title"
+                  options={[
+                    { value: "Mr.", label: "Mr." },
+                    { value: "Mrs.", label: "Mrs." },
+                    { value: "Ms.", label: "Ms." },
+                    { value: "Dr.", label: "Dr." },
+                  ]}
+                />
+              </Form.Item>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <Form.Item
+                name="familyName"
+                label={<FormLabel khmer="នាមត្រកូល" english="Family Name" required />}
+                rules={[{ required: true, message: "Please enter family name" }]}
+              >
+                <Input size="large" placeholder="Enter family name" />
+              </Form.Item>
+
+              <Form.Item
+                name="givenName"
+                label={<FormLabel khmer="នាមខ្លួន" english="Given Name" required />}
+                rules={[{ required: true, message: "Please enter given name" }]}
+              >
+                <Input size="large" placeholder="Enter given name" />
+              </Form.Item>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <Form.Item
+                name="dateOfBirth"
+                label={<FormLabel khmer="ថ្ងៃខែឆ្នាំកំណើត" english="Date of Birth" required />}
+                rules={[{ required: true, message: "Please select date of birth" }]}
+              >
+                <DatePicker
+                  size="large"
+                  format="DD/MMM/YYYY"
+                  className="w-full"
+                  placeholder="Select date"
+                />
+              </Form.Item>
+
+              <Form.Item
+                name="gender"
+                label={<FormLabel khmer="ភេទ" english="Gender" required />}
+                rules={[{ required: true, message: "Please select gender" }]}
+              >
+                <Select
+                  size="large"
+                  placeholder="Select gender"
+                  options={[
+                    { value: "Male", label: "Male" },
+                    { value: "Female", label: "Female" },
+                  ]}
+                />
+              </Form.Item>
+            </div>
+          </div>
+
+          {/* Additional Details Section */}
+          <p className="text-sm font-medium text-gray-700 mb-4">Additional Information Required</p>
+          
           <div className="grid grid-cols-2 gap-4">
             <Form.Item
               name="height"
