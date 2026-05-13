@@ -8,6 +8,7 @@ import PolicyholderForm from "@/components/quote/PolicyholderForm";
 import DependentsForm from "@/components/quote/DependentsForm";
 import SelectPlanForm, { PlanData } from "@/components/quote/SelectPlanForm";
 import QuotationReview from "@/components/quote/QuotationReview";
+import ConfirmationForm from "@/components/quote/ConfirmationForm";
 import QuotationList from "@/components/quote/QuotationList";
 import Sidebar from "@/components/quote/Sidebar";
 import { Dependent } from "@/components/quote/AddDependentModal";
@@ -137,6 +138,21 @@ export default function QuotePage() {
                   dependents={dependents}
                   planData={planData}
                   onBack={() => setCurrentStep(3)}
+                  onProceed={() => setCurrentStep(5)}
+                />
+              )}
+
+              {currentStep === 5 && (
+                <ConfirmationForm
+                  policyholderData={policyholderData}
+                  dependents={dependents}
+                  planData={planData}
+                  onBack={() => setCurrentStep(4)}
+                  onSubmit={() => {
+                    // Handle final submission
+                    alert("Application submitted successfully!");
+                    setActiveMenu("quotation-list");
+                  }}
                 />
               )}
             </>

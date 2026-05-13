@@ -292,7 +292,7 @@ export default function PolicyholderForm({ onContinue }: PolicyholderFormProps) 
       {/* Footer */}
       <div className="flex items-center justify-between mt-8">
         <div className="flex-1"></div>
-        <div className="text-sm text-gray-500">Step 1 of 4</div>
+        <div className="text-sm text-gray-500">Step 1 of 5</div>
         <div className="flex-1 flex justify-end">
           <button
             onClick={handleContinue}
