@@ -7,6 +7,7 @@ import StepIndicator from "@/components/quote/StepIndicator";
 import PolicyholderForm from "@/components/quote/PolicyholderForm";
 import DependentsForm from "@/components/quote/DependentsForm";
 import SelectPlanForm, { PlanData } from "@/components/quote/SelectPlanForm";
+import QuotationReview from "@/components/quote/QuotationReview";
 import QuotationList from "@/components/quote/QuotationList";
 import Sidebar from "@/components/quote/Sidebar";
 import { Dependent } from "@/components/quote/AddDependentModal";
@@ -25,7 +26,7 @@ export default function QuotePage() {
   const [policyholderData, setPolicyholderData] = useState<PolicyholderData | null>(null);
   const [dependents, setDependents] = useState<Dependent[]>([]);
   const [planData, setPlanData] = useState<PlanData | null>(null);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [activeMenu, setActiveMenu] = useState("create-quotation");
 
   const handlePolicyholderContinue = (values: PolicyholderData) => {
@@ -131,16 +132,12 @@ export default function QuotePage() {
               )}
 
               {currentStep === 4 && (
-                <div className="max-w-4xl mx-auto px-6 py-8">
-                  <h1 className="text-3xl font-bold text-[#0a3d62]">Review & Quote</h1>
-                  <p className="text-gray-600 mt-2">Step 4 - Coming soon</p>
-                  <button
-                    onClick={() => setCurrentStep(3)}
-                    className="mt-4 border border-gray-300 px-6 py-2 rounded-lg"
-                  >
-                    ← Back
-                  </button>
-                </div>
+                <QuotationReview
+                  policyholderData={policyholderData}
+                  dependents={dependents}
+                  planData={planData}
+                  onBack={() => setCurrentStep(3)}
+                />
               )}
             </>
           ) : (

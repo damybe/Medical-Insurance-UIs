@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Select, Input, DatePicker, Form } from "antd";
-import { UserOutlined, CalendarOutlined } from "@ant-design/icons";
+import { UserOutlined, CalendarOutlined, PhoneOutlined, MailOutlined } from "@ant-design/icons";
 import dayjs, { Dayjs } from "dayjs";
 
 interface PolicyholderFormProps {
@@ -15,6 +15,9 @@ interface FormValues {
   givenName: string;
   dateOfBirth: Dayjs | null;
   gender: string;
+  countryCode: string;
+  phoneNumber: string;
+  email: string;
 }
 
 export default function PolicyholderForm({ onContinue }: PolicyholderFormProps) {
@@ -83,6 +86,9 @@ export default function PolicyholderForm({ onContinue }: PolicyholderFormProps) 
             givenName: "",
             dateOfBirth: null,
             gender: undefined,
+            countryCode: "+855",
+            phoneNumber: "",
+            email: "",
           }}
         >
           {/* First Row: Title, Family Name, Given Name */}
@@ -200,6 +206,83 @@ export default function PolicyholderForm({ onContinue }: PolicyholderFormProps) 
                   { value: "Other", label: "Other" },
                   { value: "Prefer not to say", label: "Prefer not to say" },
                 ]}
+              />
+            </Form.Item>
+          </div>
+
+          {/* Third Row: Contact Number (Country Code + Phone), Email */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <div className="mb-2">
+                <span className="block text-xs text-gray-500">លេខទូរស័ព្ទ</span>
+                <span className="text-gray-700">Contact Number</span>
+                <span className="text-[#c8102e] ml-1">*</span>
+              </div>
+              <div className="flex gap-2">
+                <Form.Item
+                  name="countryCode"
+                  className="mb-0"
+                  style={{ width: '140px' }}
+                >
+                  <Select
+                    size="large"
+                    showSearch
+                    optionFilterProp="label"
+                    options={[
+                      { value: "+855", label: "+855 (KH)" },
+                      { value: "+1", label: "+1 (US)" },
+                      { value: "+44", label: "+44 (UK)" },
+                      { value: "+61", label: "+61 (AU)" },
+                      { value: "+65", label: "+65 (SG)" },
+                      { value: "+66", label: "+66 (TH)" },
+                      { value: "+84", label: "+84 (VN)" },
+                      { value: "+86", label: "+86 (CN)" },
+                      { value: "+81", label: "+81 (JP)" },
+                      { value: "+82", label: "+82 (KR)" },
+                      { value: "+91", label: "+91 (IN)" },
+                      { value: "+60", label: "+60 (MY)" },
+                      { value: "+63", label: "+63 (PH)" },
+                      { value: "+62", label: "+62 (ID)" },
+                      { value: "+33", label: "+33 (FR)" },
+                      { value: "+49", label: "+49 (DE)" },
+                    ]}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="phoneNumber"
+                  className="mb-0 flex-1"
+                  rules={[
+                    { required: true, message: "Please enter phone number" },
+                    { pattern: /^[0-9]{6,15}$/, message: "Please enter a valid phone number (6-15 digits)" }
+                  ]}
+                >
+                  <Input 
+                    size="large" 
+                    placeholder="Enter phone number" 
+                    prefix={<PhoneOutlined className="text-gray-400" />}
+                  />
+                </Form.Item>
+              </div>
+            </div>
+
+            <Form.Item
+              name="email"
+              label={
+                <span>
+                  <span className="block text-xs text-gray-500">អ៊ីមែល</span>
+                  <span className="text-gray-700">Email</span>
+                  <span className="text-[#c8102e] ml-1">*</span>
+                </span>
+              }
+              rules={[
+                { required: true, message: "Please enter email address" },
+                { type: "email", message: "Please enter a valid email address" }
+              ]}
+            >
+              <Input 
+                size="large" 
+                placeholder="Enter email address" 
+                prefix={<MailOutlined className="text-gray-400" />}
               />
             </Form.Item>
           </div>
