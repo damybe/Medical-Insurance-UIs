@@ -22,6 +22,16 @@ interface PolicyholderData {
   gender: string;
 }
 
+// Generate a unique job number
+const generateJobNumber = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const random = Math.floor(Math.random() * 10000).toString().padStart(4, "0");
+  return `JOB-${year}${month}${day}-${random}`;
+};
+
 export default function QuotePage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [policyholderData, setPolicyholderData] = useState<PolicyholderData | null>(null);
@@ -29,9 +39,14 @@ export default function QuotePage() {
   const [planData, setPlanData] = useState<PlanData | null>(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [activeMenu, setActiveMenu] = useState("create-quotation");
+  const [jobNumber, setJobNumber] = useState<string | null>(null);
 
   const handlePolicyholderContinue = (values: PolicyholderData) => {
     setPolicyholderData(values);
+    // Generate job number when policyholder details are entered
+    if (!jobNumber) {
+      setJobNumber(generateJobNumber());
+    }
     setCurrentStep(2);
   };
 
